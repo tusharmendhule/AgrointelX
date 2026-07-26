@@ -1,11 +1,19 @@
 <div align="center">
 
-# 🌱 AgroIntelX
+# 🌾 AgroIntelX
+
 ### AI-Powered Smart Agriculture Platform
 
-An intelligent agriculture platform that helps farmers make data-driven decisions using Artificial Intelligence, Machine Learning, Weather Analytics, and Crop Disease Detection.
+AI-driven platform for precision farming, crop management, and intelligent agricultural decision-making.
 
-[🌐 Live Demo](https://agrointelx.vercel.app/) • [💻 GitHub Repository](https://github.com/tusharmendhule/AgrointelX)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
+![Vite](https://img.shields.io/badge/Vite-Latest-646CFF?logo=vite)
+
+🌐 **Live Demo:** https://agrointelx.vercel.app  
+⚙️ **Backend:** https://agrointelx-1.onrender.com
 
 </div>
 
@@ -13,320 +21,72 @@ An intelligent agriculture platform that helps farmers make data-driven decision
 
 ## 📖 Overview
 
-AgroIntelX is a modern AI-powered agriculture platform designed to improve farming productivity and sustainability.
+AgroIntelX is an AI-powered smart agriculture platform that helps farmers improve productivity through crop recommendations, disease detection, yield prediction, weather insights, and farm management.
 
-The platform provides intelligent recommendations for crop selection, disease detection, irrigation planning, fertilizer suggestions, weather monitoring, and market insights using Artificial Intelligence and Machine Learning.
+## ✨ Features
 
-The goal is to empower farmers with real-time insights and smart decision-making tools.
+- 🔐 Secure Authentication
+- 🌦 Weather Intelligence
+- 🌱 AI Crop Recommendation
+- 🍃 Plant Disease Detection
+- 📈 Yield Prediction
+- 🤖 AI Farming Assistant
+- 💰 Expense Management
+- 📅 Farm Calendar
+- 🚜 Equipment Management
+- 🐄 Livestock Management
 
----
+## 🛠 Tech Stack
 
-# ✨ Features
+- **Frontend:** React, TypeScript, Vite, Tailwind CSS
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB Atlas
+- **AI:** Google Gemini API
+- **Deployment:** Vercel & Render
 
-### 🤖 AI Crop Recommendation
-- Smart crop suggestions based on:
-  - Soil Type
-  - Temperature
-  - Rainfall
-  - Humidity
-  - Nitrogen
-  - Phosphorus
-  - Potassium
-
----
-
-### 🌿 Plant Disease Detection
-- Upload plant leaf images
-- AI detects crop diseases
-- Provides confidence score
-- Suggested treatment
-
----
-
-### 🌦 Weather Dashboard
-- Real-time weather
-- Temperature
-- Humidity
-- Wind Speed
-- Rain Forecast
-
----
-
-### 💧 Smart Irrigation Recommendation
-
-AI recommends:
-
-- Irrigation schedule
-- Water requirements
-- Soil moisture guidance
-
----
-
-### 🌱 Fertilizer Recommendation
-
-Get recommendations based on
-
-- Soil nutrients
-- Crop type
-- Soil health
-
----
-
-### 📈 Market Price Analysis
-
-- Latest crop prices
-- Market trends
-- Price comparison
-
----
-
-### 📊 Farmer Dashboard
-
-Monitor
-
-- Predictions
-- Uploaded diseases
-- Weather
-- Recommendations
-- Recent activities
-
----
-
-### 🔐 Secure Authentication
-
-- Firebase Authentication
-- Email Login
-- Google Login
-- Protected Routes
-
----
-
-### 📱 Responsive UI
-
-- Mobile Friendly
-- Tablet Support
-- Desktop Optimized
-
----
-
-# 🛠 Tech Stack
-
-## Frontend
-
-- React.js
-- Vite
-- Tailwind CSS
-- JavaScript
-
-## Backend
-
-- Node.js
-- Express.js
-
-## Database
-
-- MongoDB Atlas
-
-## Authentication
-
-- Firebase Authentication
-
-## AI / ML
-
-- TensorFlow
-- Python
-- Machine Learning Models
-
-## APIs
-
-- Weather API
-- AI Prediction APIs
-- Disease Detection API
-
----
-
-# 📂 Project Structure
-
-```
-AgroIntelX
-│
-├── client/
-│   ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-│
-├── server/
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   ├── middleware/
-│   └── config/
-│
-├── ai-model/
-│   ├── disease_detection/
-│   ├── crop_prediction/
-│   └── fertilizer_model/
-│
-└── README.md
-```
-
----
-
-# 🚀 Installation
-
-## Clone Repository
+## 🚀 Installation
 
 ```bash
 git clone https://github.com/tusharmendhule/AgrointelX.git
-```
+cd AgrointelX
 
-Go inside project
+# Frontend
+cd frontend
+npm install
+npm run dev
 
-```bash
-cd AgroIntelX
-```
-
----
-
-## Install Frontend
-
-```bash
-cd client
+# Backend
+cd ../backend
 npm install
 npm run dev
 ```
 
----
+## ⚙️ Environment Variables
 
-## Install Backend
+**Frontend**
 
-```bash
-cd server
-npm install
-npm start
+```env
+VITE_API_URL=
 ```
 
----
+**Backend**
 
-## Environment Variables
-
-Create a `.env` file.
-
-```
+```env
+PORT=3001
+APP_URL=
 MONGODB_URI=
-FIREBASE_API_KEY=
-JWT_SECRET=
-WEATHER_API_KEY=
+GEMINI_API_KEY=
 ```
 
----
-
-# 📸 Screenshots
-
-> Add screenshots here
-
-```
-/screenshots
-
-Home.png
-
-Dashboard.png
-
-DiseaseDetection.png
-
-Weather.png
-
-CropRecommendation.png
-
-Market.png
-```
-
----
-
-# 🎯 Future Improvements
-
-- Voice Assistant
-- IoT Sensor Integration
-- Satellite Crop Monitoring
-- AI Chatbot
-- Multi-language Support
-- Pest Prediction
-- Yield Prediction
-- Government Scheme Recommendation
-- Drone Monitoring
-- Offline Support
-
----
-
-# 🌍 Live Demo
-
-https://agrointelx.vercel.app/
-
----
-
-# 👨‍💻 Author
+## 👨‍💻 Author
 
 **Tushar Mendhule**
 
-GitHub:
-https://github.com/tusharmendhule
-
-LinkedIn:
-https://linkedin.com/in/tusharmendhule
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create your feature branch
-
-```
-git checkout -b feature/NewFeature
-```
-
-3. Commit your changes
-
-```
-git commit -m "Added New Feature"
-```
-
-4. Push
-
-```
-git push origin feature/NewFeature
-```
-
-5. Open a Pull Request
-
----
-
-# ⭐ Support
-
-If you like this project,
-
-⭐ Star the repository
-
-🍴 Fork it
-
-🛠 Contribute
-
----
-
-# 📄 License
-
-This project is licensed under the MIT License.
+- GitHub: https://github.com/tusharmendhule
+- LinkedIn: https://linkedin.com/in/tusharmendhule
 
 ---
 
 <div align="center">
-
-### 🌾 Building Smarter Agriculture with Artificial Intelligence
-
-Made with ❤️ by **Tushar Mendhule**
 
 </div>
