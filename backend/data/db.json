@@ -1,0 +1,291 @@
+{
+  "users": [
+    {
+      "id": "default-farmer",
+      "email": "farmer@agrointelx.com",
+      "phoneNumber": "9876543210",
+      "name": "Ramesh Kumar",
+      "role": "farmer",
+      "farmLocation": "Punjab, India",
+      "farmSize": 12.5,
+      "soilType": "Alluvial",
+      "createdAt": "2026-06-30T08:13:37.572Z",
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+    },
+    {
+      "id": "default-admin",
+      "email": "admin@agrointelx.com",
+      "phoneNumber": "9876543212",
+      "name": "Dr. Anil Sharma",
+      "role": "admin",
+      "createdAt": "2026-06-30T08:13:37.573Z",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+    },
+    {
+      "id": "default-expert",
+      "email": "expert@agrointelx.com",
+      "phoneNumber": "9876543211",
+      "name": "Prof. Savita Patil",
+      "role": "expert",
+      "createdAt": "2026-06-30T08:13:37.573Z",
+      "passwordHash": "34a6c1a9600377c8dc05ea00380f406fb52e8104e921dc6bd5869bfdf1516164"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "exp-1",
+      "userId": "default-farmer",
+      "category": "seeds",
+      "amount": 4500,
+      "date": "2026-06-10",
+      "description": "High-yield Basmati Rice seeds (25kg)"
+    },
+    {
+      "id": "exp-2",
+      "userId": "default-farmer",
+      "category": "fertilizer",
+      "amount": 6200,
+      "date": "2026-06-12",
+      "description": "Organic NPK Fertilizer and Urea bags"
+    },
+    {
+      "id": "exp-3",
+      "userId": "default-farmer",
+      "category": "equipment",
+      "amount": 1500,
+      "date": "2026-06-15",
+      "description": "Tractor rental for plowing and tilling"
+    },
+    {
+      "id": "exp-4",
+      "userId": "default-farmer",
+      "category": "labor",
+      "amount": 3000,
+      "date": "2026-06-18",
+      "description": "Daily wages for sowing and crop alignment"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "userId": "default-farmer",
+      "title": "Sowing Paddy Crop",
+      "date": "2026-07-02",
+      "crop": "Rice",
+      "completed": false,
+      "priority": "high",
+      "category": "sowing"
+    },
+    {
+      "id": "task-2",
+      "userId": "default-farmer",
+      "title": "Apply Nitrogen Booster (Urea)",
+      "date": "2026-07-10",
+      "crop": "Rice",
+      "completed": false,
+      "priority": "medium",
+      "category": "fertilizing"
+    },
+    {
+      "id": "task-3",
+      "userId": "default-farmer",
+      "title": "Setup Drip Irrigation Channels",
+      "date": "2026-06-25",
+      "crop": "Rice",
+      "completed": true,
+      "priority": "high",
+      "category": "irrigation"
+    },
+    {
+      "id": "task-4",
+      "userId": "default-farmer",
+      "title": "Spray Neem Oil Biopesticide",
+      "date": "2026-07-15",
+      "crop": "Rice",
+      "completed": false,
+      "priority": "medium",
+      "category": "spraying"
+    }
+  ],
+  "schemes": [
+    {
+      "id": "sch-1",
+      "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+      "description": "An initiative by the Government of India providing up to ₹6,000 per year in three equal installments as minimum income support to small and marginal farmers.",
+      "eligibility": "All small and landholder farmer families having cultivable landholding up to 2 hectares.",
+      "subsidyPercentage": 100,
+      "link": "https://pmkisan.gov.in",
+      "category": "loans"
+    },
+    {
+      "id": "sch-2",
+      "name": "Sub-Mission on Agricultural Mechanization (SMAM)",
+      "description": "Financial assistance for purchase of agricultural machinery, tractors, power tillers, and custom hiring centers to reduce physical labor cost.",
+      "eligibility": "Registered farmers with land details. Special preference to SC, ST, and Women farmers.",
+      "subsidyPercentage": 50,
+      "link": "https://agrimachinery.nic.in",
+      "category": "subsidies"
+    },
+    {
+      "id": "sch-3",
+      "name": "PM Fasal Bima Yojana (PMFBY)",
+      "description": "Government-sponsored crop insurance scheme that integrates multiple stakeholders to cover yield losses from natural calamities, pests, and local risks.",
+      "eligibility": "All farmers growing notified crops in notified areas, including sharecroppers and tenant farmers.",
+      "subsidyPercentage": 80,
+      "link": "https://pmfby.gov.in",
+      "category": "crop insurance"
+    },
+    {
+      "id": "sch-4",
+      "name": "National Mission for Sustainable Agriculture (NMSA)",
+      "description": "Aims at making agriculture more productive, sustainable, and climate resilient through micro-irrigation systems, organic soil health cards, and rainfed technologies.",
+      "eligibility": "All categories of farmers, with focus on sustainable soil health management.",
+      "subsidyPercentage": 60,
+      "link": "https://nmsa.dac.gov.in",
+      "category": "tech acquisition"
+    },
+    {
+      "id": "sch-5",
+      "name": "Soil Health Card Scheme (SHC)",
+      "description": "Provides farmers with Soil Health Cards showing nutrient status of their soil along with customized fertilizer recommendations to optimize crop yield and soil quality.",
+      "eligibility": "All farmers holding agricultural land holdings in India.",
+      "subsidyPercentage": 100,
+      "link": "https://soilhealth.dac.gov.in",
+      "category": "subsidies"
+    },
+    {
+      "id": "sch-6",
+      "name": "PMKSY (Pradhan Mantri Krishi Sinchayee Yojana)",
+      "description": "Aims to achieve convergence of investments in irrigation at the field level, expand cultivable area under assured irrigation, and improve on-farm water use efficiency.",
+      "eligibility": "All categories of landholders, agricultural cooperatives, and farmer self-help groups.",
+      "subsidyPercentage": 55,
+      "link": "https://pmksy.gov.in",
+      "category": "tech acquisition"
+    },
+    {
+      "id": "sch-7",
+      "name": "Kisan Credit Card (KCC) Scheme",
+      "description": "Provides farmers with easy access to short-term, low-interest agricultural credit for purchasing seeds, fertilizers, pesticides, and other farming necessities.",
+      "eligibility": "All individual or joint land-holding farmers, tenant farmers, and sharecroppers.",
+      "subsidyPercentage": 100,
+      "link": "https://www.myscheme.gov.in/schemes/kcc",
+      "category": "loans"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "eq-1",
+      "name": "Mahindra Yuvo Tech+ 405",
+      "type": "Tractor",
+      "status": "Available",
+      "rentalCostPerDay": 1200,
+      "lastServicedDate": "2026-05-10",
+      "operatorName": "Sohan Singh"
+    },
+    {
+      "id": "eq-2",
+      "name": "Rotavator Deluxe Shaktiman",
+      "type": "Soil Tiller",
+      "status": "In Use",
+      "rentalCostPerDay": 500,
+      "lastServicedDate": "2026-06-01"
+    },
+    {
+      "id": "eq-3",
+      "name": "Solar Drip Pump Controller",
+      "type": "Irrigation Pump",
+      "status": "Available",
+      "rentalCostPerDay": 0,
+      "lastServicedDate": "2026-04-20"
+    },
+    {
+      "id": "eq-4",
+      "name": "Automatic Paddy Transplanter",
+      "type": "Sowing Rig",
+      "status": "Maintenance",
+      "rentalCostPerDay": 2000,
+      "lastServicedDate": "2026-06-25"
+    }
+  ],
+  "livestock": [
+    {
+      "id": "ls-1",
+      "tagId": "AG-IND-9081",
+      "type": "Cattle",
+      "breed": "Sahiwal Cow",
+      "ageMonths": 34,
+      "healthStatus": "Healthy",
+      "vaccinations": [
+        {
+          "name": "Foot and Mouth Disease (FMD)",
+          "date": "2026-03-10"
+        },
+        {
+          "name": "Brucellosis",
+          "date": "2025-11-15"
+        }
+      ],
+      "feedPlan": "Greens (lucerne/berseem), concentrate feed 3.5kg/day, mineral mixture 50g."
+    },
+    {
+      "id": "ls-2",
+      "tagId": "AG-IND-9082",
+      "type": "Cattle",
+      "breed": "Murrah Buffalo",
+      "ageMonths": 42,
+      "healthStatus": "Vaccination Due",
+      "vaccinations": [
+        {
+          "name": "Haemorrhagic Septicaemia (HS)",
+          "date": "2025-09-05"
+        }
+      ],
+      "feedPlan": "Chaffed straw, dry fodder, green fodder 20kg/day, protein concentrate."
+    },
+    {
+      "id": "ls-3",
+      "tagId": "AG-IND-4011",
+      "type": "Poultry",
+      "breed": "Kadaknath Chickens (Batch of 50)",
+      "ageMonths": 4,
+      "healthStatus": "Healthy",
+      "vaccinations": [
+        {
+          "name": "Ranikhet Newcastle Disease",
+          "date": "2026-05-18"
+        }
+      ],
+      "feedPlan": "Starter mash, organic waste, calcium enriched layer pellets."
+    }
+  ],
+  "notifications": [
+    {
+      "id": "not-1",
+      "userId": "default-farmer",
+      "title": "Heavy Rainfall Warning",
+      "message": "IMD forecasts heavy rain (>50mm) starting in 24 hours. Postpone any fertilizer spraying to avoid runoffs.",
+      "type": "warning",
+      "date": "2026-06-30T08:13:37.573Z",
+      "read": false
+    },
+    {
+      "id": "not-2",
+      "userId": "default-farmer",
+      "title": "Low Soil Moisture Alert",
+      "message": "Field Sector B-4 moisture has dropped to 18%. Automatic drip irrigation has been recommended.",
+      "type": "alert",
+      "date": "2026-06-30T04:13:37.573Z",
+      "read": false
+    },
+    {
+      "id": "not-3",
+      "userId": "default-farmer",
+      "title": "Pest Activity Spotted Nearby",
+      "message": "Farmers in adjacent blocks reported Armyworm sightings. Inspect paddy leaves for bite marks immediately.",
+      "type": "info",
+      "date": "2026-06-29T08:13:37.573Z",
+      "read": true
+    }
+  ],
+  "predictions": []
+}

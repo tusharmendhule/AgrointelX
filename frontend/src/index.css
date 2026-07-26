@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Base Body Styles */
+body {
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+/* --- LIGHT MODE / PALETTED VARIABLE OVERRIDES --- */
+html:not(.dark) {
+  background-color: #f2faf5 !important; /* Soft premium mint off-white */
+  color: #0c1a15 !important; /* Deep forest-charcoal */
+}
+
+html:not(.dark) body {
+  background-color: #f2faf5 !important;
+  color: #0c1a15 !important;
+}
+
+/* Convert page-level text wrappers and light text elements to dark forest-slate for readability */
+html:not(.dark) .text-slate-100 {
+  color: #0c1a15 !important;
+}
+html:not(.dark) .text-slate-200 {
+  color: #152c24 !important;
+}
+html:not(.dark) .text-slate-300 {
+  color: #244136 !important;
+}
+html:not(.dark) .text-slate-400 {
+  color: #3b5a4d !important;
+}
+html:not(.dark) .text-slate-500 {
+  color: #557567 !important;
+}
+
+/* Ensure headings stay clean dark forest */
+html:not(.dark) h1, 
+html:not(.dark) h2, 
+html:not(.dark) h3, 
+html:not(.dark) h4, 
+html:not(.dark) h5, 
+html:not(.dark) h6 {
+  color: #0c1a15 !important;
+}
+
+/* Override card backgrounds with pure white and soft green border shadow */
+html:not(.dark) .bg-slate-900\/40,
+html:not(.dark) .bg-slate-900\/20,
+html:not(.dark) .bg-slate-900\/50,
+html:not(.dark) .bg-slate-900 {
+  background-color: #ffffff !important;
+  color: #0c1a15 !important;
+  border-color: #e2f2e9 !important; /* Extremely soft green-tinted border */
+  box-shadow: 0 4px 12px -2px rgba(16, 185, 129, 0.04), 0 2px 6px -1px rgba(16, 185, 129, 0.03) !important;
+}
+
+/* Convert inputs and secondary panels to soft mint */
+html:not(.dark) .bg-slate-950,
+html:not(.dark) .bg-slate-950\/40,
+html:not(.dark) .bg-slate-950\/60,
+html:not(.dark) .bg-slate-950\/55,
+html:not(.dark) .bg-slate-50,
+html:not(.dark) .bg-slate-100 {
+  background-color: #edf7f2 !important;
+  color: #0c1a15 !important;
+  border-color: #d1e8dc !important;
+}
+
+/* Soften all dark borders in light mode to standard light borders */
+html:not(.dark) .border-slate-200,
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-slate-800\/80,
+html:not(.dark) .border-slate-800\/50,
+html:not(.dark) .border-slate-700 {
+  border-color: #e2f2e9 !important;
+}
+
+/* Force standard inputs, selects and textareas to look modern and crisp in mint theme */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  background-color: #ffffff !important;
+  color: #0c1a15 !important;
+  border-color: #d1e8dc !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #8faea0 !important;
+}
+
+/* Adjust light calendar cells */
+html:not(.dark) .bg-slate-500\/5 {
+  background-color: rgba(16, 185, 129, 0.04) !important;
+}
+
+/* Fix chat components in AiAssistant page under Light mode */
+html:not(.dark) .bg-slate-950\/40 .text-emerald-400 {
+  color: #059669 !important;
+}
+
+
+/* --- DARK MODE PALETTED DEFAULTS --- */
+html.dark {
+  background-color: #040a08 !important; /* Deep forest-black */
+  color: #f1fbf7 !important; /* Soft minty-white */
+}
+
+html.dark body {
+  background-color: #040a08 !important;
+  color: #f1fbf7 !important;
+}
+
+/* Sidebar and Main Cards in Dark Mode */
+html.dark .bg-slate-900\/40,
+html.dark .bg-slate-900\/20,
+html.dark .bg-slate-900\/50,
+html.dark .bg-slate-900 {
+  background-color: #06120e !important; /* Forest emerald-black cards */
+  color: #f1fbf7 !important;
+  border-color: #0e261d !important; /* Subtle dark forest border */
+}
+
+/* Input panels and deeper containers in Dark Mode */
+html.dark .bg-slate-950,
+html.dark .bg-slate-950\/40,
+html.dark .bg-slate-950\/60,
+html.dark .bg-slate-950\/55,
+html.dark .bg-slate-900\/70,
+html.dark .bg-slate-950\/70,
+html.dark .bg-slate-800\/40 {
+  background-color: #030706 !important; /* Even deeper forest-black for inputs/inner elements */
+  color: #f1fbf7 !important;
+  border-color: #0d211a !important;
+}
+
+/* Dark mode border soft overrides */
+html.dark .border-slate-800,
+html.dark .border-slate-800\/80,
+html.dark .border-slate-800\/50,
+html.dark .border-slate-700 {
+  border-color: #0e261d !important;
+}
+
+/* Force standard inputs, selects and textareas in Dark Mode */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: #030706 !important;
+  color: #f1fbf7 !important;
+  border-color: #0e261d !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #4c6b5e !important;
+}
+
+/* Premium styled scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.5);
+}
+
+/* Selection highlight */
+::selection {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+/* Custom pulsing animation slows */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
