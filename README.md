@@ -1,135 +1,332 @@
-# AgroIntelX 🌾
+<div align="center">
 
-AgroIntelX is a high-performance, full-stack, AI-powered agricultural intelligence platform designed to empower modern farmers, agricultural researchers, and administrators. Built with a pristine **Forest Mint theme** supporting dynamic light/dark modes, a secure **hybrid Cloud/local backend**, and real-time smart diagnostics.
+# 🌱 AgroIntelX
+### AI-Powered Smart Agriculture Platform
 
-This repository contains two **fully independent** projects — each has its own `package.json`, its own `package-lock.json`, and its own `node_modules` (nothing is hoisted to the repo root). This is intentional: it lets you deploy `frontend/` to Vercel and `backend/` to Render (or any other host) as two separate deployments, each only ever touching its own folder.
+An intelligent agriculture platform that helps farmers make data-driven decisions using Artificial Intelligence, Machine Learning, Weather Analytics, and Crop Disease Detection.
+
+[🌐 Live Demo](https://agrointelx.vercel.app/) • [💻 GitHub Repository](https://github.com/tusharmendhule/AgrointelX)
+
+</div>
+
+---
+
+## 📖 Overview
+
+AgroIntelX is a modern AI-powered agriculture platform designed to improve farming productivity and sustainability.
+
+The platform provides intelligent recommendations for crop selection, disease detection, irrigation planning, fertilizer suggestions, weather monitoring, and market insights using Artificial Intelligence and Machine Learning.
+
+The goal is to empower farmers with real-time insights and smart decision-making tools.
+
+---
+
+# ✨ Features
+
+### 🤖 AI Crop Recommendation
+- Smart crop suggestions based on:
+  - Soil Type
+  - Temperature
+  - Rainfall
+  - Humidity
+  - Nitrogen
+  - Phosphorus
+  - Potassium
+
+---
+
+### 🌿 Plant Disease Detection
+- Upload plant leaf images
+- AI detects crop diseases
+- Provides confidence score
+- Suggested treatment
+
+---
+
+### 🌦 Weather Dashboard
+- Real-time weather
+- Temperature
+- Humidity
+- Wind Speed
+- Rain Forecast
+
+---
+
+### 💧 Smart Irrigation Recommendation
+
+AI recommends:
+
+- Irrigation schedule
+- Water requirements
+- Soil moisture guidance
+
+---
+
+### 🌱 Fertilizer Recommendation
+
+Get recommendations based on
+
+- Soil nutrients
+- Crop type
+- Soil health
+
+---
+
+### 📈 Market Price Analysis
+
+- Latest crop prices
+- Market trends
+- Price comparison
+
+---
+
+### 📊 Farmer Dashboard
+
+Monitor
+
+- Predictions
+- Uploaded diseases
+- Weather
+- Recommendations
+- Recent activities
+
+---
+
+### 🔐 Secure Authentication
+
+- Firebase Authentication
+- Email Login
+- Google Login
+- Protected Routes
+
+---
+
+### 📱 Responsive UI
+
+- Mobile Friendly
+- Tablet Support
+- Desktop Optimized
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- React.js
+- Vite
+- Tailwind CSS
+- JavaScript
+
+## Backend
+
+- Node.js
+- Express.js
+
+## Database
+
+- MongoDB Atlas
+
+## Authentication
+
+- Firebase Authentication
+
+## AI / ML
+
+- TensorFlow
+- Python
+- Machine Learning Models
+
+## APIs
+
+- Weather API
+- AI Prediction APIs
+- Disease Detection API
+
+---
+
+# 📂 Project Structure
 
 ```
-AgrointelX/
-├── frontend/   # React 19 + Vite + Tailwind CSS client — deploy this folder to Vercel
-├── backend/    # Express 5 API server — deploy this folder to Render
-└── package.json  # Optional dev-only convenience scripts (NOT a workspaces root, not part of either deployment)
+AgroIntelX
+│
+├── client/
+│   ├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+│
+├── server/
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   ├── middleware/
+│   └── config/
+│
+├── ai-model/
+│   ├── disease_detection/
+│   ├── crop_prediction/
+│   └── fertilizer_model/
+│
+└── README.md
 ```
 
 ---
 
-## 🌟 Key Features
+# 🚀 Installation
 
-### 🛡️ Secure Hybrid-Cloud Backend
-* **Dual-Engine Persistence:** Automatic detection and integration of MongoDB Atlas with a graceful local JSON fallback when offline.
-* **Google OAuth & Manual Auth Support:** Robust Google Authentication powered by Firebase alongside standard email/password registration.
-* **Auto-Seeding Engines:** Automatic schema bootstrapping and initial seeding of default agricultural data (farmer profiles, calendar events, equipment catalogs, and Indian government schemes such as PM-KISAN, KCC, SHC, and PMKSY).
-* **Express.js API:** High-speed, CORS-enabled REST API that protects Gemini and database credentials from client exposure.
+## Clone Repository
 
-### 🌐 Multilanguage Support (English, Hindi, Marathi)
-* The entire UI — navigation, forms, dashboards, and the AI chat widget — is available in **English**, **हिन्दी (Hindi)**, and **मराठी (Marathi)**.
-* Switch languages anytime from the sidebar, the auth pages, or Settings → Language Preferences. The choice is remembered on the device (`localStorage`) via `i18next-browser-languagedetector`.
-* Voice input (speech-to-text) in the AI Assistant and dashboard chat widget automatically follows the selected language (`en-IN` / `hi-IN` / `mr-IN`).
-* Translation strings live in `frontend/src/i18n/locales/{hi,mr}.json`; English text is supplied inline as the i18next default value at each call site, so no separate `en.json` is needed. To add a new language, duplicate one of these files, translate the values, and register it in `frontend/src/i18n/index.ts`.
+```bash
+git clone https://github.com/tusharmendhule/AgrointelX.git
+```
 
-### 🧪 Smart Agricultural Modules
-* **Disease Detection:** Interactive plant leaf scanning and disease diagnosis powered by Gemini Vision APIs with offline logs.
-* **Crop Recommendation:** Fast soil-nutrient and geographical suitability assessments matching crops to optimal regional environments.
-* **Yield Prediction:** Micro-prediction modeling estimating crop yield per acre based on historical rain, fertilizer, and soil quality inputs.
-* **Government Schemes Portal:** Real-time eligibility checking with direct links to official government application portals.
-* **Equipment Hiring Hub:** Dynamic booking catalog for tractors, rotavators, and irrigation pumps with integrated expense logging.
-* **Livestock Tracker:** Medical, vaccination, and tailored feed plans for cows, buffaloes, and poultry.
-* **Smart Notification Dispatcher:** Real-time alerts for local pest outbreaks, extreme weather risks, and low soil moisture.
+Go inside project
+
+```bash
+cd AgroIntelX
+```
 
 ---
 
-## 🚀 Getting Started
+## Install Frontend
 
-Requires **Node.js v20.19+ or v22.12+** and npm.
-
-### 1. Install dependencies (each project separately)
 ```bash
-cd backend && npm install
-cd ../frontend && npm install
-```
-(Or from the repo root: `npm run install:all`, which just runs the two commands above for you — it does not create a root `node_modules`.)
-
-### 2. Configure environment variables
-
-**Backend** — copy `backend/.env.example` to `backend/.env`:
-```env
-PORT=3001
-APP_URL=http://localhost:5173
-MONGODB_URI=your_mongodb_connection_string   # optional, falls back to local JSON
-GEMINI_API_KEY=your_gemini_api_key            # optional, falls back to offline simulation
-```
-
-**Frontend** — copy `frontend/.env.example` to `frontend/.env`:
-```env
-VITE_FIREBASE_API_KEY=...
-VITE_FIREBASE_AUTH_DOMAIN=...
-VITE_FIREBASE_PROJECT_ID=...
-VITE_FIREBASE_STORAGE_BUCKET=...
-VITE_FIREBASE_MESSAGING_SENDER_ID=...
-VITE_FIREBASE_APP_ID=...
-VITE_API_URL=                       # leave blank in dev (uses the proxy below)
-VITE_DEV_API_PROXY_TARGET=http://localhost:3001
-```
-
-### 3. Run both dev servers together (optional convenience)
-The root `package.json` is just a script runner for local development — install it once if you want a single command to start both apps:
-```bash
-npm install        # installs only "concurrently" into a root node_modules — not used in either deployment
+cd client
+npm install
 npm run dev
 ```
-This starts the backend API on **http://localhost:3001** and the frontend on **http://localhost:5173**, with Vite proxying `/api/*` requests to the backend so the client code can keep using relative paths.
 
-You can just as easily skip the root install entirely and run each app in its own terminal:
+---
+
+## Install Backend
+
 ```bash
-cd backend && npm run dev
-cd frontend && npm run dev
+cd server
+npm install
+npm start
 ```
 
-### 4. Build for production
-```bash
-cd backend && npm run build     # -> backend/dist/server.cjs
-cd frontend && npm run build    # -> frontend/dist (static assets)
+---
+
+## Environment Variables
+
+Create a `.env` file.
+
+```
+MONGODB_URI=
+FIREBASE_API_KEY=
+JWT_SECRET=
+WEATHER_API_KEY=
 ```
 
-### 5. Deploy — frontend on Vercel, backend on Render
-Because `frontend/` and `backend/` are fully independent projects (separate `package.json`, `package-lock.json`, `node_modules`), each platform only ever needs to look inside its own folder.
+---
 
-**Backend → Render**
-1. New Web Service → connect this repo.
-2. **Root Directory:** `backend`
-3. **Build Command:** `npm install && npm run build`
-4. **Start Command:** `npm run start`
-5. Environment variables: `PORT` (Render sets this automatically — you can omit it), `APP_URL` (set to your Vercel frontend URL, e.g. `https://your-app.vercel.app`), `MONGODB_URI`, `GEMINI_API_KEY`.
+# 📸 Screenshots
 
-**Frontend → Vercel**
-1. New Project → import this repo.
-2. **Root Directory:** `frontend`
-3. Vercel auto-detects Vite: **Build Command:** `npm run build`, **Output Directory:** `dist`.
-4. Environment variables: `VITE_API_URL` set to your Render backend URL (e.g. `https://your-api.onrender.com`), plus the `VITE_FIREBASE_*` keys.
-5. Redeploy after setting env vars so Vite bakes `VITE_API_URL` into the build.
+> Add screenshots here
 
-Once both are deployed, update the backend's `APP_URL` env var (CORS allow-list) to match your final Vercel domain, and redeploy the backend.
+```
+/screenshots
+
+Home.png
+
+Dashboard.png
+
+DiseaseDetection.png
+
+Weather.png
+
+CropRecommendation.png
+
+Market.png
+```
 
 ---
 
-## 🛠️ Tech Stack & Dependencies
+# 🎯 Future Improvements
 
-* **Frontend:** React 19, Vite 8 (Rolldown), Tailwind CSS 4, Lucide Icons, Recharts, Motion (Framer Motion), React Router 7, Firebase Auth, i18next / react-i18next (English, Hindi, Marathi).
-* **Backend:** Node.js, Express 5, MongoDB driver, `@google/genai` (Gemini AI SDK), CORS, dotenv.
-* **Tooling:** TypeScript 7, tsx, esbuild — two fully independent npm projects, no workspaces.
+- Voice Assistant
+- IoT Sensor Integration
+- Satellite Crop Monitoring
+- AI Chatbot
+- Multi-language Support
+- Pest Prediction
+- Yield Prediction
+- Government Scheme Recommendation
+- Drone Monitoring
+- Offline Support
+
+---
+
+# 🌍 Live Demo
+
+https://agrointelx.vercel.app/
 
 ---
 
-## 📈 Database Schema Structure
+# 👨‍💻 Author
 
-The backend stores data across these core collections/records (MongoDB Atlas, or `backend/data/db.json` when running locally without Mongo):
-* `users` - Secure profile settings, farm coordinates, soil-type data, and access credentials.
-* `expenses` - Ledger registry mapping financial records, seeding costs, and operator bills.
-* `tasks` - Interactive checklist tracker logs crop routines, sowing dates, and priority filters.
-* `equipment` - Inventory status logs for shared farming rigs and hiring availability.
-* `livestock` - Veterinary vaccine tags, age progress logs, and diet instructions.
-* `notifications` - Broadcast warning channels for extreme climate and pest risk alerts.
-* `predictions` - Archive logs capturing AI crop recommendations and leaf disease reports.
+**Tushar Mendhule**
+
+GitHub:
+https://github.com/tusharmendhule
+
+LinkedIn:
+https://linkedin.com/in/tusharmendhule
 
 ---
-*Crafted with precision for AgroIntelX.*
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create your feature branch
+
+```
+git checkout -b feature/NewFeature
+```
+
+3. Commit your changes
+
+```
+git commit -m "Added New Feature"
+```
+
+4. Push
+
+```
+git push origin feature/NewFeature
+```
+
+5. Open a Pull Request
+
+---
+
+# ⭐ Support
+
+If you like this project,
+
+⭐ Star the repository
+
+🍴 Fork it
+
+🛠 Contribute
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+### 🌾 Building Smarter Agriculture with Artificial Intelligence
+
+Made with ❤️ by **Tushar Mendhule**
+
+</div>
