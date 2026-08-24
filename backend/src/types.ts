@@ -18,6 +18,8 @@ export interface User {
   farmLocation?: string;
   farmSize?: number; // in acres
   soilType?: string;
+  farmLat?: number;
+  farmLon?: number;
   createdAt: string;
 }
 
@@ -42,6 +44,17 @@ export interface WeatherData {
     condition: string;
     precipitation: number;
   }>;
+  // Extended weather fields
+  feelsLike?: number;
+  windDirection?: number;
+  uvIndex?: number;
+  pressure?: number;
+  visibility?: number;
+  sunrise?: string;
+  sunset?: string;
+  rainProbability?: number;
+  location?: string;
+  lastUpdated?: string;
 }
 
 export interface CropRecommendationParams {

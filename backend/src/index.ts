@@ -7,7 +7,7 @@ import crypto from "crypto";
 
 import { db, UserRole } from "./db";
 import { recommendCrop, detectPlantDisease, predictYield, askAiAssistant } from "./gemini";
-import { getWeatherData } from "./weather";
+import { getWeatherData, reverseGeocode, forwardGeocode, getWeatherEmoji, calculateWeatherRisk, generateFarmRecommendations } from "./weather";
 import { User } from "./types";
 
 async function startServer() {
@@ -314,8 +314,78 @@ async function startServer() {
   // 2. WEATHER INTELLIGENCE
   app.get("/api/weather", authenticateToken, async (req: any, res) => {
     const location = req.user.farmLocation || "Punjab, India";
-    const weather = await getWeatherData(location);
+    const lat = req.query.lat ? parseFloat(req.query.lat as string) : req.user.farmLat;
+    const lon = req.query.lon ? parseFloat(req.query.lon as string) : req.user.farmLon;
+    const weather = await getWeatherData(location, lat, lon);
     res.json(weather);
+  });
+
+  // Weather with explicit coordinates (for location picker)
+  app.post("/api/weather/coordinates", authenticateToken, async (req: any, res) => {
+    const { latitude, longitude } = req.body;
+    if (latitude === undefined || longitude === undefined) {
+      return res.status(400).json({ error: "Latitude and longitude are required." });
+    }
+    const weather = await getWeatherData(undefined, latitude, longitude);
+    const locationName = await reverseGeocode(latitude, longitude);
+    weather.location = locationName;
+    res.json(weather);
+  });
+
+  // Reverse geocode coordinates to readable location
+  app.post("/api/location/reverse", authenticateToken, async (req: any, res) => {
+    const { latitude, longitude } = req.body;
+    if (latitude === undefined || longitude === undefined) {
+      return res.status(400).json({ error: "Latitude and longitude are required." });
+    }
+    const locationName = await reverseGeocode(latitude, longitude);
+    res.json({ location: locationName, lat: latitude, lon: longitude });
+  });
+
+  // Forward geocode location string to coordinates
+  app.post("/api/location/search", authenticateToken, async (req: any, res) => {
+    const { query } = req.body;
+    if (!query) {
+      return res.status(400).json({ error: "Search query is required." });
+    }
+    const result = await forwardGeocode(query);
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ error: "Location not found." });
+    }
+  });
+
+  // Weather risk assessment
+  app.post("/api/weather/risk", authenticateToken, async (req: any, res) => {
+    const { latitude, longitude, location } = req.body;
+    const weather = await getWeatherData(location, latitude, longitude);
+    const risk = calculateWeatherRisk(weather);
+    const recommendations = generateFarmRecommendations(weather);
+    res.json({ weather, risk, recommendations });
+  });
+
+  // Weather recommendations only
+  app.post("/api/weather/recommendations", authenticateToken, async (req: any, res) => {
+    const { latitude, longitude, location } = req.body;
+    const weather = await getWeatherData(location, latitude, longitude);
+    const recommendations = generateFarmRecommendations(weather);
+    res.json({ recommendations });
+  });
+
+  // Update user farm coordinates
+  app.put("/api/auth/location", authenticateToken, async (req: any, res) => {
+    const { farmLocation, farmLat, farmLon } = req.body;
+    const updated = db.updateUserProfile(req.user.id, {
+      farmLocation,
+      farmLat: farmLat ? parseFloat(farmLat) : undefined,
+      farmLon: farmLon ? parseFloat(farmLon) : undefined
+    } as any);
+    if (updated) {
+      res.json({ user: updated });
+    } else {
+      res.status(500).json({ error: "Failed to update location" });
+    }
   });
 
   // 3. CROP RECOMMENDATION
