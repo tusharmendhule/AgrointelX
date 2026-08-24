@@ -439,5 +439,18 @@
   "yield.soilType": "मृदा प्रकार",
   "yield.targetCrop": "लक्ष्य फसल",
   "yield.tonnesPerAcre": "टन/एकड़",
-  "yield.totalProjection": "कुल उपज अनुमान"
+  "yield.totalProjection": "कुल उपज अनुमान",
+  "pwa.bannerTitle": "AgroIntelX इंस्टॉल करें",
+  "pwa.bannerDesc": "तुरंत एक्सेस के लिए होम स्क्रीन में जोड़ें — ऑफलाइन काम करता है, तेज़ लोडिंग।",
+  "pwa.installButton": "इंस्टॉल करें",
+  "pwa.notNow": "अभी नहीं",
+  "pwa.installOnIOS": "iPhone / iPad पर इंस्टॉल करें",
+  "pwa.iosStep1": "शेयर",
+  "pwa.iosStep1b": "बटन (वर तीर वाला वर्ग) Safari में टैप करें",
+  "pwa.iosStep2": "नीचे स्क्रॉल करें और टैप करें",
+  "pwa.iosStep2Action": "\"होम स्क्रीन में जोड़ें\"",
+  "pwa.iosStep3": "टैप करें",
+  "pwa.iosStep3Action": "जोड़ें",
+  "pwa.iosStep3b": "ऊपर दाईं ओर",
+  "pwa.iosGotIt": "समझ गया!"
 }

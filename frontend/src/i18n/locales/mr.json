@@ -439,5 +439,18 @@
   "yield.soilType": "माती प्रकार",
   "yield.targetCrop": "लक्ष्य पीक",
   "yield.tonnesPerAcre": "टन/एकर",
-  "yield.totalProjection": "एकूण उत्पन्न अंदाज"
+  "yield.totalProjection": "एकूण उत्पन्न अंदाज",
+  "pwa.bannerTitle": "AgroIntelX स्थापित करा",
+  "pwa.bannerDesc": "त्वरित प्रवेशासाठी होम स्क्रीनवर जोडा — ऑफलाइन काम करते, जलद लोडिंग.",
+  "pwa.installButton": "स्थापित करा",
+  "pwa.notNow": "आत्ता नाही",
+  "pwa.installOnIOS": "iPhone / iPad वर स्थापित करा",
+  "pwa.iosStep1": "शेअर",
+  "pwa.iosStep1b": "बटन (वर बाण असलेला चौकोन) Safari मध्ये टॅप करा",
+  "pwa.iosStep2": "खाली स्क्रोल करा आणि टॅप करा",
+  "pwa.iosStep2Action": "\"होम स्क्रीनवर जोडा\"",
+  "pwa.iosStep3": "टॅप करा",
+  "pwa.iosStep3Action": "जोडा",
+  "pwa.iosStep3b": "वर उजवीकडे",
+  "pwa.iosGotIt": "समजले!"
 }

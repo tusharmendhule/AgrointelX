@@ -34,6 +34,7 @@ import { api } from "../lib/api";
 import { AppNotification } from "../types";
 import LanguageSwitcher from "./LanguageSwitcher";
 import LocationSelector from "./LocationSelector";
+import PwaInstallBanner from "./PwaInstallBanner";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { t, i18n } = useTranslation();
@@ -453,6 +454,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Location Selector Modal */}
       <LocationSelector isOpen={locationOpen} onClose={() => setLocationOpen(false)} />
+
+      {/* PWA Install Banner */}
+      <PwaInstallBanner />
 
       {/* FLOATING AI ASSISTANT SIDE-DRAWER */}
       <AnimatePresence>

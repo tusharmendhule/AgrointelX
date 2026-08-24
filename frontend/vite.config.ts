@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
           orientation: 'portrait',
           scope: '/',
           start_url: '/',
+          id: '/',
           categories: ['agriculture', 'weather', 'productivity'],
           icons: [
             {
@@ -76,6 +77,8 @@ export default defineConfig(({ mode }) => {
         },
         workbox: {
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+          navigateFallback: 'index.html',
+          navigateFallbackDenylist: [/^\/api/],
           runtimeCaching: [
             {
               urlPattern: /^https:\/\/.*\.googleapis\.com\/.*$/i,
