@@ -11,7 +11,9 @@ import {
   GovScheme, 
   Equipment, 
   Livestock, 
-  AppNotification 
+  AppNotification, 
+  WeatherRisk, 
+  WeatherRecommendation 
 } from "../types";
 
 // Base URL of the backend API. In dev, Vite proxies "/api" to the backend
@@ -107,8 +109,38 @@ export const api = {
   },
 
   // Weather Intelligence
-  getWeather: async () => {
-    return apiRequest<WeatherData>("/api/weather", "GET");
+  getWeather: async (lat?: number, lon?: number) => {
+    let url = "/api/weather";
+    const params = new URLSearchParams();
+    if (lat !== undefined) params.set("lat", lat.toString());
+    if (lon !== undefined) params.set("lon", lon.toString());
+    const qs = params.toString();
+    if (qs) url += `?${qs}`;
+    return apiRequest<WeatherData>(url, "GET");
+  },
+
+  getWeatherByCoordinates: async (latitude: number, longitude: number) => {
+    return apiRequest<WeatherData>("/api/weather/coordinates", "POST", { latitude, longitude });
+  },
+
+  reverseGeocode: async (latitude: number, longitude: number) => {
+    return apiRequest<{ location: string; lat: number; lon: number }>("/api/location/reverse", "POST", { latitude, longitude });
+  },
+
+  searchLocation: async (query: string) => {
+    return apiRequest<{ lat: number; lon: number; name: string }>("/api/location/search", "POST", { query });
+  },
+
+  getWeatherRisk: async (latitude?: number, longitude?: number, location?: string) => {
+    return apiRequest<{ weather: WeatherData; risk: WeatherRisk; recommendations: WeatherRecommendation[] }>("/api/weather/risk", "POST", { latitude, longitude, location });
+  },
+
+  getWeatherRecommendations: async (latitude?: number, longitude?: number, location?: string) => {
+    return apiRequest<{ recommendations: WeatherRecommendation[] }>("/api/weather/recommendations", "POST", { latitude, longitude, location });
+  },
+
+  updateFarmLocation: async (farmLocation: string, farmLat?: number, farmLon?: number) => {
+    return apiRequest<{ user: User }>("/api/auth/location", "PUT", { farmLocation, farmLat, farmLon });
   },
 
   // Crop recommendation NPK

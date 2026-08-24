@@ -15,12 +15,16 @@ import {
   Languages
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useLocation } from "../context/LocationContext";
 import { api } from "../lib/api";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import LocationSelector from "../components/LocationSelector";
 
 export default function SettingsPage() {
   const { t } = useTranslation();
   const { user, updateProfile } = useAuth();
+  const { lat, lon, locationName, requestLocation } = useLocation();
+  const [locationOpen, setLocationOpen] = useState(false);
 
   const [name, setName] = useState(user?.name || "");
   const [farmLocation, setFarmLocation] = useState(user?.farmLocation || "");
@@ -62,7 +66,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="space-y-8 font-sans text-slate-100">
+    <div className="space-y-8 font-sans">
       
       {/* Header */}
       <div>
@@ -78,7 +82,7 @@ export default function SettingsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Settings form */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <User className="h-5 w-5" />
@@ -104,24 +108,23 @@ export default function SettingsPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("settings.fullName", "Your Full Name")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("settings.fullName", "Your Full Name")}</label>
               <div className="relative">
-                <User className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
+                <User className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-400 dark:text-slate-500" />
                 <input 
                   type="text" 
                   value={name} 
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ramesh Kumar" 
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("settings.farmLocation", "Geographical Farm Location")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("settings.farmLocation", "Geographical Farm Location")}</label>
                 <div className="relative">
                   <MapPin className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
                   <input 
@@ -129,13 +132,13 @@ export default function SettingsPage() {
                     value={farmLocation} 
                     onChange={(e) => setFarmLocation(e.target.value)}
                     placeholder="Punjab, Ludhiana" 
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("settings.landSize", "Cultivated Land Size (Acres)")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("settings.landSize", "Cultivated Land Size (Acres)")}</label>
                 <div className="relative">
                   <Grid className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
                   <input 
@@ -144,20 +147,19 @@ export default function SettingsPage() {
                     value={farmSize} 
                     onChange={(e) => setFarmSize(e.target.value)}
                     placeholder="12.5" 
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
             </div>
 
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("settings.defaultSoilType", "Default Soil Classification Type")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("settings.defaultSoilType", "Default Soil Classification Type")}</label>
               <div className="relative">
                 <Beaker className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-500" />
                 <select 
                   value={soilType} 
                   onChange={(e) => setSoilType(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="Alluvial">{t("soil.alluvialShort", "Alluvial Loam")}</option>
                   <option value="Black">{t("soil.blackShort", "Black Regur")}</option>
@@ -180,28 +182,28 @@ export default function SettingsPage() {
         </div>
 
         {/* Database Status Info panel */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md flex flex-col justify-between">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md flex flex-col justify-between shadow-sm">
           <div className="space-y-4 text-xs">
             <h3 className="font-bold flex items-center gap-1.5">
               <Database className="h-4.5 w-4.5 text-teal-400" /> {t("settings.dbState", "Database Integration State")}
             </h3>
             
-            <div className="p-4 bg-slate-950/40 border border-slate-800 rounded-2xl space-y-3 font-mono text-[10px] text-slate-400 leading-relaxed">
+            <div className="p-4 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-2xl space-y-3 font-mono text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed">
               <div className="flex justify-between">
                 <span>{t("settings.dbEngine", "Database Engine")}:</span>
-                <span className="text-emerald-400 font-bold">{t("settings.dbEngineValue", "Local JSON DB")}</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{t("settings.dbEngineValue", "Local JSON DB")}</span>
               </div>
               <div className="flex justify-between">
                 <span>{t("settings.activeSandbox", "Active Sandbox")}:</span>
-                <span className="text-emerald-400">{t("common.yes", "Yes")}</span>
+                <span className="text-emerald-600 dark:text-emerald-400">{t("common.yes", "Yes")}</span>
               </div>
               <div className="flex justify-between">
                 <span>{t("settings.encryptedTokens", "Encrypted Tokens")}:</span>
-                <span className="text-teal-400">JWT (RSA-SHA256)</span>
+                <span className="text-teal-600 dark:text-teal-400">JWT (RSA-SHA256)</span>
               </div>
               <div className="flex justify-between">
                 <span>{t("settings.persistencePath", "Persistence Path")}:</span>
-                <span className="text-slate-500">data/db.json</span>
+                <span className="text-slate-600 dark:text-slate-500">data/db.json</span>
               </div>
             </div>
             
@@ -210,14 +212,54 @@ export default function SettingsPage() {
             </p>
           </div>
 
-          <div className="p-3 bg-teal-500/10 border border-teal-500/20 text-teal-300 rounded-xl text-[10px] flex items-center gap-2 mt-4">
+          <div className="p-3 bg-teal-50 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/20 text-teal-700 dark:text-teal-300 rounded-xl text-[10px] flex items-center gap-2 mt-4">
             <Lock className="h-4 w-4 shrink-0" />
             <span>{t("settings.mfaNote", "Multi-factor authentication (MFA) protocols ready.")}</span>
           </div>
         </div>
 
+        {/* Location Settings */}
+        <div className="lg:col-span-5 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
+              <MapPin className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="font-bold text-sm">{t("settings.locationPrefs", "Farm Location Settings")}</h3>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400">{t("settings.locationPrefsDesc", "Set your farm location for accurate weather and recommendations")}</p>
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center gap-3">
+              <MapPin className="h-5 w-5 text-emerald-500" />
+              <div>
+                <p className="text-xs font-semibold text-slate-900 dark:text-slate-100">Current Farm Location</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">{locationName || user?.farmLocation || "Not set"}</p>
+                {lat && lon && (
+                  <p className="text-[9px] text-slate-400 font-mono">{lat.toFixed(4)}°N, {lon.toFixed(4)}°E</p>
+                )}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={requestLocation}
+                className="px-3 py-1.5 bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 rounded-lg text-[10px] font-semibold hover:bg-emerald-200 dark:hover:bg-emerald-500/30 transition-colors"
+              >
+                {t("settings.useMyLocation", "Use My Location")}
+              </button>
+              <button
+                onClick={() => setLocationOpen(true)}
+                className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg text-[10px] font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              >
+                {t("settings.changeLocation", "Change")}
+              </button>
+            </div>
+          </div>
+          <LocationSelector isOpen={locationOpen} onClose={() => setLocationOpen(false)} />
+        </div>
+
         {/* Language Preferences */}
-        <div className="lg:col-span-5 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-5 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Languages className="h-5 w-5" />

@@ -70,7 +70,7 @@ export default function YieldPrediction() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Form */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Sprout className="h-5 w-5" />
@@ -84,11 +84,11 @@ export default function YieldPrediction() {
           <form onSubmit={handlePredict} className="space-y-4 text-xs">
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("yield.targetCrop", "Target Crop")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("yield.targetCrop", "Target Crop")}</label>
                 <select 
                   value={crop} 
                   onChange={(e) => setCrop(e.target.value)}
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="Rice">{t("crops.rice", "Paddy Rice")}</option>
                   <option value="Wheat">{t("crops.wheat", "Spring Wheat")}</option>
@@ -100,25 +100,25 @@ export default function YieldPrediction() {
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("yield.areaCultivated", "Area Cultivated (Acres)")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("yield.areaCultivated", "Area Cultivated (Acres)")}</label>
                 <input 
                   type="number" 
                   step="0.1"
                   value={area} 
                   onChange={(e) => setArea(e.target.value)}
                   required
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2.5 px-3 font-mono font-bold text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 font-mono font-bold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("yield.soilType", "Soil Type")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("yield.soilType", "Soil Type")}</label>
                 <select 
                   value={soilType} 
                   onChange={(e) => setSoilType(e.target.value)}
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="Alluvial">{t("soil.alluvialShort", "Alluvial Loam")}</option>
                   <option value="Black">{t("soil.blackShort", "Black Regur")}</option>
@@ -129,11 +129,11 @@ export default function YieldPrediction() {
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("yield.irrigationChannel", "Irrigation Channel")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("yield.irrigationChannel", "Irrigation Channel")}</label>
                 <select 
                   value={irrigationType} 
                   onChange={(e) => setIrrigationType(e.target.value)}
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 font-semibold text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="Drip Irrigation">{t("irrigation.drip", "Drip Irrigation (Optimal)")}</option>
                   <option value="Sprinklers">{t("irrigation.sprinklers", "Micro Sprinklers")}</option>
@@ -143,14 +143,13 @@ export default function YieldPrediction() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("yield.fertilizerDesc", "Fertilizer Additions Description")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("yield.fertilizerDesc", "Fertilizer Additions Description")}</label>
               <input 
                 type="text" 
                 value={fertilizerUsed} 
                 onChange={(e) => setFertilizerUsed(e.target.value)}
                 placeholder={t("yield.fertilizerPlaceholder", "e.g. 50kg Neem-coated Urea, 25kg Potash")}
-                className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
@@ -173,10 +172,10 @@ export default function YieldPrediction() {
                 key="empty"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full min-h-[350px] rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center text-center p-8 text-slate-400 bg-slate-900/10"
+                className="h-full min-h-[350px] rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center text-center p-8 text-slate-400 bg-slate-50 dark:bg-slate-900/10"
               >
                 <TrendingUp className="h-10 w-10 text-emerald-500/30 mb-3 animate-pulse" />
-                <h4 className="font-bold text-slate-300">{t("yield.reportTitle", "Harvest Predictor Report")}</h4>
+                <h4 className="font-bold text-slate-400 dark:text-slate-300">{t("yield.reportTitle", "Harvest Predictor Report")}</h4>
                 <p className="text-xs max-w-sm mt-1">{t("yield.reportDesc", "Specify target crop and resource inputs on the left. AgroIntelX will calculate yield metric outputs.")}</p>
               </motion.div>
             ) : (
@@ -184,7 +183,7 @@ export default function YieldPrediction() {
                 key="result"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md space-y-6"
+                className="p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md space-y-6 shadow-sm"
               >
                 {/* Result header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800/80">
@@ -193,7 +192,7 @@ export default function YieldPrediction() {
                       <Sparkles className="h-6 w-6" />
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase font-mono font-bold text-emerald-400">{t("yield.totalProjection", "Total Yield Projection")}</span>
+                      <span className="text-[10px] uppercase font-mono font-bold text-emerald-600 dark:text-emerald-400">{t("yield.totalProjection", "Total Yield Projection")}</span>
                       <h3 className="text-2xl font-black tracking-tight">{result.predictedYieldTonnes} {t("yield.metricTonnes", "Metric Tonnes")}</h3>
                       <p className="text-[10px] text-slate-400 font-semibold mt-0.5">{t("yield.estimatedOn", "Estimated on {{area}} cultivated acres", { area })}</p>
                     </div>
@@ -201,13 +200,13 @@ export default function YieldPrediction() {
 
                   <div className="text-right sm:text-right">
                     <span className="text-[10px] uppercase font-mono font-bold text-slate-400 block">{t("yield.perAcre", "Yield Per Acre")}</span>
-                    <span className="text-xl font-black font-mono text-emerald-400">{result.predictedYieldPerAcre} {t("yield.tonnesPerAcre", "Tonnes/Ac")}</span>
+                    <span className="text-xl font-black font-mono text-emerald-600 dark:text-emerald-400">{result.predictedYieldPerAcre} {t("yield.tonnesPerAcre", "Tonnes/Ac")}</span>
                   </div>
                 </div>
 
                 {/* Limiting factors */}
                 <div className="text-xs">
-                  <h4 className="font-bold text-rose-400 mb-2 flex items-center gap-1.5">
+                  <h4 className="font-bold text-rose-600 dark:text-rose-400 mb-2 flex items-center gap-1.5">
                     <HelpCircle className="h-4 w-4 shrink-0" /> {t("yield.limitingRisks", "Limiting Yield Risks")}
                   </h4>
                   <ul className="list-disc pl-5 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
@@ -219,13 +218,13 @@ export default function YieldPrediction() {
 
                 {/* Resource optimizations */}
                 <div className="text-xs pt-4 border-t border-slate-200 dark:border-slate-800/80">
-                  <h4 className="font-bold text-emerald-400 mb-3 flex items-center gap-1.5">
+                  <h4 className="font-bold text-emerald-600 dark:text-emerald-400 mb-3 flex items-center gap-1.5">
                     <ShieldCheck className="h-4.5 w-4.5" /> {t("yield.soilEnhancements", "AI Recommended Soil Enhancements")}
                   </h4>
                   <div className="space-y-2.5">
                     {result.optimizationRecommendations.map((opt, idx) => (
-                      <div key={idx} className="p-3 bg-slate-950/40 border border-slate-800 rounded-xl">
-                        <p className="text-slate-300 font-semibold text-[11px] leading-relaxed">{opt}</p>
+                      <div key={idx} className="p-3 bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl">
+                        <p className="text-slate-700 dark:text-slate-300 font-semibold text-[11px] leading-relaxed">{opt}</p>
                       </div>
                     ))}
                   </div>

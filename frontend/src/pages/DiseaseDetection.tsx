@@ -118,7 +118,7 @@ export default function DiseaseDetection() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Upload column */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md flex flex-col justify-between">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md flex flex-col justify-between shadow-sm">
           <div className="space-y-4">
             <h3 className="font-bold text-sm">{t("disease.visualIntake", "Visual Evidence Intake")}</h3>
             
@@ -133,7 +133,7 @@ export default function DiseaseDetection() {
                 dragActive 
                   ? "border-emerald-500 bg-emerald-500/5 text-emerald-400" 
                   : image 
-                  ? "border-emerald-600/30 bg-slate-950/40 text-slate-300" 
+                  ? "border-emerald-600/30 bg-slate-50 dark:bg-slate-950/40 text-slate-600 dark:text-slate-300" 
                   : "border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 text-slate-400"
               }`}
             >
@@ -150,7 +150,7 @@ export default function DiseaseDetection() {
                   <div className="p-3 bg-emerald-500/15 rounded-xl text-emerald-400">
                     <CircleCheck className="h-6 w-6" />
                   </div>
-                  <p className="text-[11px] font-semibold text-slate-200">{t("disease.photoUploaded", "Foliage Photograph Uploaded")}</p>
+                  <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-200">{t("disease.photoUploaded", "Foliage Photograph Uploaded")}</p>
                   <button 
                     type="button" 
                     onClick={(e) => { e.stopPropagation(); clearUpload(); }}
@@ -164,20 +164,19 @@ export default function DiseaseDetection() {
                   <div className="p-3 bg-slate-200 dark:bg-slate-800/80 rounded-xl text-slate-400 mx-auto w-fit">
                     <Upload className="h-6 w-6" />
                   </div>
-                  <p className="text-xs font-semibold text-slate-300">{t("disease.dragDrop", "Drag & Drop or Click to Select leaf photo")}</p>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-300">{t("disease.dragDrop", "Drag & Drop or Click to Select leaf photo")}</p>
                   <p className="text-[10px] text-slate-500">{t("disease.supportedFormats", "Supports JPG, PNG (Max 15MB)")}</p>
                 </div>
               )}
             </div>
 
             {/* Optional contextual input */}
-            <div className="text-xs">
-              <label className="block text-slate-400 font-semibold mb-1">{t("disease.observationDetails", "Observation Details (Optional)")}</label>
+            <div className="text-xs">                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("disease.observationDetails", "Observation Details (Optional)")}</label>
               <textarea 
                 value={textContext}
                 onChange={(e) => setTextContext(e.target.value)}
                 placeholder={t("disease.observationPlaceholder", "e.g. Concentric black targets observed on bottom foliage. Affecting roughly 15% of the sector.")}
-                className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-2 px-3 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-2 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 rows={3}
               />
             </div>
@@ -211,10 +210,10 @@ export default function DiseaseDetection() {
                 key="empty"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="h-full min-h-[350px] rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center text-center p-8 text-slate-400 bg-slate-900/10"
+                className="h-full min-h-[350px] rounded-3xl border-2 border-dashed border-slate-200 dark:border-slate-800/80 flex flex-col items-center justify-center text-center p-8 text-slate-400 bg-slate-50 dark:bg-slate-900/10"
               >
                 <Camera className="h-10 w-10 text-teal-500/30 mb-3 animate-pulse" />
-                <h4 className="font-bold text-slate-300">{t("disease.diagnosticDeskTitle", "Intelligent Diagnostic Desk")}</h4>
+                <h4 className="font-bold text-slate-500 dark:text-slate-300">{t("disease.diagnosticDeskTitle", "Intelligent Diagnostic Desk")}</h4>
                 <p className="text-xs max-w-sm mt-1">{t("disease.diagnosticDeskDesc", "Upload a crop leaf picture or load presets on the left. Gemini will generate a plant disease prescription report.")}</p>
               </motion.div>
             ) : (
@@ -222,7 +221,7 @@ export default function DiseaseDetection() {
                 key="result"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md space-y-5"
+                className="p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md space-y-5 shadow-sm"
               >
                 {/* Result header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800/80">
@@ -231,21 +230,21 @@ export default function DiseaseDetection() {
                       <HeartPulse className="h-6 w-6" />
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase font-mono font-bold text-rose-400">{t("disease.diagnosisVerdict", "Diagnosis Verdict")}</span>
+                      <span className="text-[10px] uppercase font-mono font-bold text-rose-600 dark:text-rose-400">{t("disease.diagnosisVerdict", "Diagnosis Verdict")}</span>
                       <h3 className="text-lg font-black tracking-tight">{result.diseaseName}</h3>
                       <p className="text-[10px] text-slate-400 font-semibold mt-0.5">{t("disease.cropLabel", "Crop")}: {result.plantName}</p>
                     </div>
                   </div>
 
                   <div className="text-right sm:text-right">
-                    <span className="text-[10px] uppercase font-mono font-bold text-slate-400 block">{t("disease.diagnosticConfidence", "Diagnostic Confidence")}</span>
-                    <span className="text-xl font-black font-mono text-emerald-400">{Math.round(result.confidence * 100)}%</span>
+                    <span className="text-[10px] uppercase font-mono font-bold text-slate-500 dark:text-slate-400 block">{t("disease.diagnosticConfidence", "Diagnostic Confidence")}</span>
+                    <span className="text-xl font-black font-mono text-emerald-600 dark:text-emerald-400">{Math.round(result.confidence * 100)}%</span>
                   </div>
                 </div>
 
                 {/* Symptoms list */}
                 <div className="text-xs">
-                  <h4 className="font-bold text-slate-200 mb-2 flex items-center gap-1.5">
+                  <h4 className="font-bold text-slate-700 dark:text-slate-200 mb-2 flex items-center gap-1.5">
                     <AlertTriangle className="h-4 w-4 text-amber-500" /> {t("disease.symptomsIdentified", "Symptoms Identified")}
                   </h4>
                   <ul className="list-disc pl-5 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
@@ -258,14 +257,14 @@ export default function DiseaseDetection() {
                 {/* Treatment details */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs leading-relaxed">
                   <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
-                    <h4 className="font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
+                    <h4 className="font-bold text-emerald-600 dark:text-emerald-400 mb-1 flex items-center gap-1.5">
                       <ShieldCheck className="h-4 w-4" /> {t("disease.organicCure", "Organic / Biological Cure")}
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-[11px]">{result.organicCure}</p>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20">
-                    <h4 className="font-bold text-amber-400 mb-1 flex items-center gap-1.5">
+                    <h4 className="font-bold text-amber-600 dark:text-amber-400 mb-1 flex items-center gap-1.5">
                       <Beaker className="h-4 w-4" /> {t("disease.chemicalCure", "Recommended Chemical Cure")}
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-[11px]">{result.chemicalCure}</p>
@@ -274,7 +273,7 @@ export default function DiseaseDetection() {
 
                 {/* Prevention guidelines */}
                 <div className="text-xs pt-2 border-t border-slate-200 dark:border-slate-800/80">
-                  <h4 className="font-bold text-slate-200 mb-2">{t("disease.preventionTips", "Proactive Hygiene & Prevention Tips")}</h4>
+                  <h4 className="font-bold text-slate-700 dark:text-slate-200 mb-2">{t("disease.preventionTips", "Proactive Hygiene & Prevention Tips")}</h4>
                   <ul className="list-decimal pl-5 space-y-1 text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
                     {result.preventionTips.map((tip, idx) => (
                       <li key={idx}>{tip}</li>

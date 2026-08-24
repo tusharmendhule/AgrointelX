@@ -11,12 +11,12 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-100 font-sans">
+      <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col items-center justify-center text-slate-900 dark:text-slate-100 font-sans">
         <div className="flex flex-col items-center gap-4">
           <div className="h-12 w-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
           <div className="space-y-2 text-center animate-pulse">
-            <h3 className="font-bold text-lg bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">AgroIntelX</h3>
-            <p className="text-xs text-slate-400 font-mono">{t("common.syncingMatrices", "Synchronizing precision agriculture matrices...")}</p>
+            <h3 className="font-bold text-lg">AgroIntelX</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{t("common.syncingMatrices", "Synchronizing precision agriculture matrices...")}</p>
           </div>
         </div>
       </div>

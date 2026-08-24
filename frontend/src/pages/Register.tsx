@@ -75,7 +75,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden font-sans text-slate-100">
+    <div className="min-h-screen bg-[#f7faf8] dark:bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden font-sans text-slate-900 dark:text-slate-100">
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-[80px]" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-[80px]" />
 
@@ -98,7 +98,7 @@ export default function Register() {
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-xl"
+          className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-xl"
         >
           {error && (
             <div className="mb-4 p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl flex items-center gap-2 text-xs">
@@ -121,7 +121,7 @@ export default function Register() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ramesh Kumar"
-                    className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default function Register() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="ramesh@gmail.com"
-                    className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                   />
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function Register() {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="9876543210"
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function Register() {
                     className={`py-2.5 rounded-xl border text-xs font-semibold capitalize transition-all ${
                       role === r 
                         ? "bg-emerald-600/10 border-emerald-500 text-emerald-400" 
-                        : "bg-slate-950/40 border-slate-800 text-slate-400 hover:bg-slate-900"
+                        : "bg-slate-50 dark:bg-slate-950/40 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900"
                     }`}
                   >
                     {t(`roles.${r}`, r)}
@@ -194,7 +194,7 @@ export default function Register() {
                         value={farmLocation}
                         onChange={(e) => setFarmLocation(e.target.value)}
                         placeholder="Punjab, Ludhiana"
-                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                   </div>
@@ -209,7 +209,7 @@ export default function Register() {
                         value={farmSize}
                         onChange={(e) => setFarmSize(e.target.value)}
                         placeholder="12.5"
-                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                   </div>
@@ -220,7 +220,7 @@ export default function Register() {
                   <select
                     value={soilType}
                     onChange={(e) => setSoilType(e.target.value)}
-                    className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                    className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                   >
                     <option value="Alluvial">{t("soil.alluvial", "Alluvial Loam (Highly Fertile)")}</option>
                     <option value="Black">{t("soil.black", "Black Soil (Regur / Cotton ideal)")}</option>
@@ -243,7 +243,7 @@ export default function Register() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={t("auth.createPasswordPlaceholder", "Create a strong password")}
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function Register() {
             type="button"
             disabled={loading}
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-slate-800 hover:border-slate-700 bg-slate-950/40 hover:bg-slate-950 disabled:opacity-50 text-slate-200 text-xs rounded-xl font-medium transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/40 hover:bg-slate-100 dark:hover:bg-slate-950 disabled:opacity-50 text-slate-700 dark:text-slate-200 text-xs rounded-xl font-medium transition-colors cursor-pointer"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24">
               <path

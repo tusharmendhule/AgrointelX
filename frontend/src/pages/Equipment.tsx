@@ -88,7 +88,7 @@ export default function EquipmentPage() {
   }
 
   return (
-    <div className="space-y-8 font-sans text-slate-100">
+    <div className="space-y-8 font-sans">
       
       {/* Header */}
       <div>
@@ -104,7 +104,7 @@ export default function EquipmentPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Equipment displays */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-6">
             <h3 className="font-bold text-sm">{t("equipment.fleetStatus", "Fleet Status Indicators")}</h3>
             <span className="text-xs px-2.5 py-1 bg-emerald-500/15 text-emerald-400 rounded-full font-semibold">
@@ -140,25 +140,25 @@ export default function EquipmentPage() {
                       </button>
                     </div>
 
-                    <h4 className="text-xs font-bold text-slate-100">{eq.name}</h4>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100">{eq.name}</h4>
                     
                     <div className="space-y-1 mt-3 text-[11px] text-slate-400">
                       <div className="flex justify-between">
                         <span>{t("equipment.lastCalibration", "Last Calibration")}:</span>
-                        <span className="font-mono text-slate-300">{eq.lastMaintenance}</span>
+                        <span className="font-mono text-slate-600 dark:text-slate-300">{eq.lastMaintenance}</span>
                       </div>
                       <div className="flex justify-between">
                         <span>{t("equipment.nextServiceDue", "Next Service Due")}:</span>
-                        <span className="font-mono text-slate-300 font-bold">{eq.nextService}</span>
+                        <span className="font-mono text-slate-600 dark:text-slate-300 font-bold">{eq.nextService}</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-950/40 rounded-xl flex items-center justify-between text-[11px]">
-                    <span className="flex items-center gap-1 text-slate-400">
-                      <Gauge className="h-3.5 w-3.5 text-emerald-500" /> {t("equipment.fuelReserve", "Fuel Reserve")}
+                  <div className="p-3 bg-slate-50 dark:bg-slate-950/40 rounded-xl flex items-center justify-between text-[11px]">
+                    <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+                      <Gauge className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" /> {t("equipment.fuelReserve", "Fuel Reserve")}
                     </span>
-                    <span className="font-mono font-bold text-emerald-400">{t("equipment.fuelFull", "82% Full")}</span>
+                    <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{t("equipment.fuelFull", "82% Full")}</span>
                   </div>
                 </div>
               ))
@@ -167,7 +167,7 @@ export default function EquipmentPage() {
         </div>
 
         {/* Create machine */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Plus className="h-5 w-5" />
@@ -186,24 +186,22 @@ export default function EquipmentPage() {
           )}
 
           <form onSubmit={handleAddEquipment} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("equipment.machineName", "Equipment / Machine Name")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("equipment.machineName", "Equipment / Machine Name")}</label>
               <input 
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t("equipment.machineNamePlaceholder", "e.g. Mahindra Arjun 555 DI Tractor")} 
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("equipment.fleetStatusLabel", "Fleet Status")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("equipment.fleetStatusLabel", "Fleet Status")}</label>
               <select 
                 value={status} 
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               >
                 <option value="operational">{t("equipmentStatusFull.operational", "Operational (Online)")}</option>
                 <option value="maintenance">{t("equipmentStatusFull.maintenance", "Preventative Maintenance")}</option>
@@ -213,24 +211,24 @@ export default function EquipmentPage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("equipment.lastCalibrationDate", "Last Calibration Date")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("equipment.lastCalibrationDate", "Last Calibration Date")}</label>
                 <input 
                   type="date" 
                   value={lastMaintenance} 
                   onChange={(e) => setLastMaintenance(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("equipment.nextServiceDue", "Next Service Due")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("equipment.nextServiceDue", "Next Service Due")}</label>
                 <input 
                   type="date" 
                   value={nextService} 
                   onChange={(e) => setNextService(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>

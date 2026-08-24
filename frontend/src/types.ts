@@ -18,6 +18,8 @@ export interface User {
   farmLocation?: string;
   farmSize?: number; // in acres
   soilType?: string;
+  farmLat?: number;
+  farmLon?: number;
   createdAt: string;
 }
 
@@ -42,6 +44,17 @@ export interface WeatherData {
     condition: string;
     precipitation: number;
   }>;
+  // Extended weather fields
+  feelsLike?: number;
+  windDirection?: number;
+  uvIndex?: number;
+  pressure?: number;
+  visibility?: number;
+  sunrise?: string;
+  sunset?: string;
+  rainProbability?: number;
+  location?: string;
+  lastUpdated?: string;
 }
 
 export interface CropRecommendationParams {
@@ -139,7 +152,7 @@ export interface Equipment {
   id: string;
   name: string;
   type: string;
-  status: "Available" | "In Use" | "Maintenance" | "operational" | "maintenance";
+  status: "Available" | "In Use" | "Maintenance" | "operational" | "maintenance" | "repair";
   rentalCostPerDay?: number;
   lastServicedDate?: string;
   operatorName?: string;
@@ -153,7 +166,7 @@ export interface Livestock {
   type: "Cattle" | "Sheep" | "Goat" | "Poultry" | "Other";
   breed: string;
   ageMonths: number;
-  healthStatus: "Healthy" | "Sick" | "Quarantined" | "Vaccination Due" | "healthy" | "quarantined";
+  healthStatus: "Healthy" | "Sick" | "Quarantined" | "Vaccination Due" | "healthy" | "quarantined" | "treatment";
   vaccinations: Array<{ name: string; date: string }>;
   feedPlan: string;
   count?: number;
@@ -168,4 +181,40 @@ export interface AppNotification {
   type: "info" | "warning" | "success" | "alert";
   date: string;
   read: boolean;
+}
+
+// Weather recommendation types
+export interface WeatherRecommendation {
+  category: "irrigation" | "spraying" | "fertilizer" | "harvest" | "field" | "disease";
+  icon: string;
+  title: string;
+  message: string;
+  urgency: "positive" | "caution" | "warning";
+}
+
+export interface WeatherRisk {
+  score: number;
+  label: "LOW" | "MODERATE" | "HIGH" | "CRITICAL";
+  factors: string[];
+}
+
+// Location types
+export interface LocationState {
+  lat: number | null;
+  lon: number | null;
+  locationName: string;
+  accuracy: number | null;
+  permissionState: "prompt" | "granted" | "denied" | "unknown";
+  isLoading: boolean;
+  error: string | null;
+  lastUpdated: number | null;
+}
+
+// Farm action types
+export interface FarmAction {
+  category: string;
+  icon: string;
+  title: string;
+  message: string;
+  urgency: "positive" | "caution" | "warning";
 }

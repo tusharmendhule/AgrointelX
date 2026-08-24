@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation as useRouterLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   LayoutDashboard, 
@@ -14,8 +14,6 @@ import {
   Bot, 
   Bell, 
   LogOut, 
-  Sun, 
-  Moon, 
   User, 
   Menu, 
   X, 
@@ -30,23 +28,29 @@ import {
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
+import { useLocation } from "../context/LocationContext";
+import { useWeather } from "../context/WeatherContext";
 import { api } from "../lib/api";
-import { AppNotification, WeatherData } from "../types";
+import { AppNotification } from "../types";
 import LanguageSwitcher from "./LanguageSwitcher";
+import LocationSelector from "./LocationSelector";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { t, i18n } = useTranslation();
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const location = useLocation();
+  const routerLocation = useRouterLocation();
+
+  const { locationName, lat, lon } = useLocation();
+  const { weather: weatherBrief, timeSinceUpdate, refreshWeather } = useWeather();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [locationOpen, setLocationOpen] = useState(false);
   
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
-  const [weatherBrief, setWeatherBrief] = useState<WeatherData | null>(null);
 
   // Chat States
   const [chatMessages, setChatMessages] = useState<Array<{ sender: "user" | "bot"; text: string }>>([
@@ -61,14 +65,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     async function loadHeaderData() {
       if (!user) return;
       try {
-        const [notifs, weather] = await Promise.all([
-          api.getNotifications(),
-          api.getWeather()
-        ]);
+        const notifs = await api.getNotifications();
         setNotifications(notifs);
-        setWeatherBrief(weather);
       } catch (err) {
-        console.error("Failed to load header dashboard briefs:", err);
+        console.error("Failed to load header notifications:", err);
       }
     }
     loadHeaderData();
@@ -166,11 +166,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   ];
 
   return (
-    <div className={`min-h-screen flex ${theme === "dark" ? "bg-slate-950 text-slate-100" : "bg-slate-50 text-slate-900"} transition-colors duration-200 font-sans`}>
+    <div className="min-h-screen flex bg-[#040a08] text-slate-100 font-sans">
       
       {/* SIDEBAR FOR DESKTOP */}
-      <aside className={`hidden lg:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 ${theme === "dark" ? "bg-slate-900/50 backdrop-blur-md" : "bg-white"} sticky top-0 h-screen z-20`}>
-        <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center gap-3">
+      <aside className="hidden lg:flex flex-col w-64 border-r border-slate-800 bg-[#06120e]/80 backdrop-blur-md sticky top-0 h-screen z-20">
+        <div className="p-6 border-b border-slate-800 flex items-center gap-3">
           <div className="p-2.5 bg-emerald-600 rounded-xl text-white shadow-lg shadow-emerald-600/30">
             <Leaf className="h-6 w-6" id="logo-icon" />
           </div>
@@ -182,7 +182,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
           {menuItems.map((item) => {
-            const active = location.pathname === item.path;
+            const active = routerLocation.pathname === item.path;
             const Icon = item.icon;
             return (
               <Link
@@ -191,10 +191,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-150 group relative ${
                   active 
                     ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/20" 
-                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/40 hover:text-emerald-600 dark:hover:text-emerald-400"
+                    : "text-slate-400 hover:bg-slate-800/40 hover:text-emerald-400"
                 }`}
               >
-                <Icon className={`h-5 w-5 ${active ? "text-white" : "text-slate-400 group-hover:text-emerald-500 transition-colors"}`} />
+                <Icon className={`h-5 w-5 ${active ? "text-white" : "text-slate-500 group-hover:text-emerald-500 transition-colors"}`} />
                 {item.name}
                 <ChevronRight className={`h-4 w-4 ml-auto transition-all ${active ? "opacity-100 text-white" : "opacity-0 group-hover:opacity-100 text-slate-400"}`} />
               </Link>
@@ -203,8 +203,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
 
         {/* LOGOUT CONTAINER */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-          <div className="flex items-center gap-3 px-3 py-2 rounded-xl mb-4 bg-slate-100 dark:bg-slate-800/40">
+        <div className="p-4 border-t border-slate-800">
+          <div className="flex items-center gap-3 px-3 py-2 rounded-xl mb-4 bg-slate-800/40">
             <div className="h-9 w-9 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-500 font-bold border border-emerald-500/20">
               {user?.name?.[0] || "F"}
             </div>
@@ -248,7 +248,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25 }}
-              className={`fixed top-0 bottom-0 left-0 w-72 border-r border-slate-200 dark:border-slate-800 ${theme === "dark" ? "bg-slate-900" : "bg-white"} z-50 flex flex-col p-6`}
+              className="fixed top-0 bottom-0 left-0 w-72 border-r border-slate-800 bg-slate-900 z-50 flex flex-col p-6"
             >
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
@@ -257,7 +257,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </div>
                   <h1 className="text-lg font-bold">AgroIntelX</h1>
                 </div>
-                <button onClick={() => setSidebarOpen(false)} className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                <button onClick={() => setSidebarOpen(false)} className="p-1 rounded-lg hover:bg-slate-800">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -268,17 +268,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
               <nav className="flex-1 space-y-1 overflow-y-auto">
                 {menuItems.map((item) => {
-                  const active = location.pathname === item.path;
+                  const active = routerLocation.pathname === item.path;
                   const Icon = item.icon;
                   return (
                     <Link
                       key={item.name}
                       to={item.path}
-                      onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-colors ${
+                      onClick={() => setSidebarOpen(false)}                        className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-colors ${
                         active 
                           ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/20" 
-                          : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/40 hover:text-emerald-600 dark:hover:text-emerald-400"
+                          : "text-slate-400 hover:bg-slate-800/40 hover:text-emerald-400"
                       }`}
                     >
                       <Icon className={`h-5 w-5 ${active ? "text-white" : "text-slate-400"}`} />
@@ -288,7 +287,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 })}
               </nav>
 
-              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+              <div className="pt-4 border-t border-slate-800">
                 <button 
                   onClick={() => { logout(); setSidebarOpen(false); }}
                   className="flex items-center gap-3 w-full px-3.5 py-3 rounded-xl text-sm font-medium text-rose-500 hover:bg-rose-500/10 transition-colors"
@@ -306,53 +305,51 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         
         {/* TOP HEADER PANELS */}
-        <header className={`sticky top-0 z-30 h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 lg:px-8 backdrop-blur-md ${theme === "dark" ? "bg-slate-950/70" : "bg-slate-50/70"}`}>
+        <header className="sticky top-0 z-30 h-16 border-b border-slate-800 flex items-center justify-between px-4 lg:px-8 bg-[#040a08]/80 backdrop-blur-md">
           
           {/* MOBILE SIDEBAR BUTTON */}
           <div className="flex items-center gap-3">
             <button 
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors"
+              className="lg:hidden p-2 rounded-lg hover:bg-slate-800/80 transition-colors"
               id="mobile-menu-btn"
             >
               <Menu className="h-5 w-5" />
             </button>
 
             {/* Weather status summary */}
-            {weatherBrief && (
-              <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800/50 text-xs text-slate-600 dark:text-slate-300">
+            <button
+              onClick={() => setLocationOpen(true)}
+              className="hidden sm:flex items-center gap-2 px-3 py-1 bg-slate-900 rounded-full border border-slate-800/50 text-xs text-slate-300 hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              {weatherBrief ? (
+                <>
+                  <CloudSun className="h-4 w-4 text-emerald-500" />
+                  <span className="font-semibold">{weatherBrief.temp}°C</span>
+                  <span className="text-slate-500">|</span>
+                  <span className="truncate max-w-[120px]">{weatherBrief.condition}</span>
+                  <span className="text-slate-500">|</span>
+                </>
+              ) : (
                 <CloudSun className="h-4 w-4 text-emerald-500" />
-                <span className="font-semibold">{weatherBrief.temp}°C</span>
-                <span className="text-slate-400 dark:text-slate-500">|</span>
-                <span className="truncate max-w-[120px]">{weatherBrief.condition}</span>
-                <span className="text-slate-400 dark:text-slate-500">|</span>
-                <span className="text-slate-400 dark:text-slate-500 flex items-center gap-1">
-                  <MapPin className="h-3 w-3 inline" /> {user?.farmLocation || t("dashboard.defaultLocation", "Punjab, IN")}
-                </span>
-              </div>
-            )}
+              )}
+              <span className="text-slate-500 flex items-center gap-1">
+                <MapPin className="h-3 w-3 inline" /> {locationName || user?.farmLocation || t("dashboard.defaultLocation", "Set Location")}
+              </span>
+              <span className="text-[9px] text-slate-400">{timeSinceUpdate !== "Never" ? timeSinceUpdate : ""}</span>
+            </button>
           </div>
 
           {/* UTILITY BUTTONS */}
           <div className="flex items-center gap-2">
 
-            {/* Language switcher */}
-            <LanguageSwitcher compact />
 
-            {/* Theme switcher */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all active:scale-95"
-              title={theme === "dark" ? t("common.switchToLight", "Switch to Light Mode") : t("common.switchToDark", "Switch to Dark Mode")}
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5 text-amber-400" /> : <Moon className="h-5 w-5 text-slate-700" />}
-            </button>
 
             {/* Notifications panel toggle */}
             <div className="relative">
               <button
                 onClick={() => setNotifOpen(!notifOpen)}
-                className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 relative transition-all active:scale-95"
+                className="p-2 rounded-xl text-slate-400 hover:bg-slate-800 relative transition-all active:scale-95"
                 title={t("dashboard.climateAlerts", "Climate and Crop Alerts")}
                 id="bell-icon"
               >
@@ -373,9 +370,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className={`absolute right-0 mt-2 w-80 lg:w-96 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 ${theme === "dark" ? "bg-slate-900" : "bg-white"} overflow-hidden z-40`}
-                    >
-                      <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/40">
+                      className="absolute right-0 mt-2 w-80 lg:w-96 rounded-2xl shadow-xl border border-slate-800 bg-slate-900 overflow-hidden z-40"
+                    >                        <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-800/40">
                         <span className="font-semibold text-sm">{t("dashboard.climateAndCropAlerts", "Climate & Crop Alerts")}</span>
                         <div className="flex gap-2">
                           <button 
@@ -387,7 +383,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </div>
                       </div>
 
-                      <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/50">
+                      <div className="max-h-80 overflow-y-auto divide-y divide-slate-800/50">
                         {notifications.length === 0 ? (
                           <div className="p-8 text-center text-xs text-slate-400">
                             {t("dashboard.noAlerts", "No active soil or weather warnings. You're set!")}
@@ -396,7 +392,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           notifications.map((n) => (
                             <div 
                               key={n.id} 
-                              className={`p-4 text-xs transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/30 ${!n.read ? "bg-emerald-50/10 dark:bg-emerald-500/5" : ""}`}
+                              className={`p-4 text-xs transition-colors hover:bg-slate-800/30 ${!n.read ? "bg-emerald-500/5" : ""}`}
                             >
                               <div className="flex justify-between items-start gap-2 mb-1">
                                 <span className={`font-semibold ${
@@ -416,7 +412,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                   </button>
                                 )}
                               </div>
-                              <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-1">{n.message}</p>
+                              <p className="text-slate-400 leading-relaxed mb-1">{n.message}</p>
                               <span className="text-[10px] text-slate-400">{new Date(n.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                           ))
@@ -429,17 +425,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
 
             {/* Chat Trigger (Bot Icon) */}
-            <button
-              onClick={() => setChatOpen(true)}
-              className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 relative transition-all active:scale-95"
+            <button                onClick={() => setChatOpen(true)}
+                className="p-2 rounded-xl text-slate-400 hover:bg-slate-800 relative transition-all active:scale-95"
               title={t("chat.openAssistant", "Open AI Agricultural Assistant")}
               id="ai-assistant-btn"
             >
               <Bot className="h-5 w-5 text-emerald-500" />
             </button>
 
-            {/* Divider */}
-            <span className="h-5 w-px bg-slate-200 dark:bg-slate-800 mx-1" />
+
 
             {/* Profile Avatar Button */}
             <button 
@@ -457,6 +451,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </main>
       </div>
 
+      {/* Location Selector Modal */}
+      <LocationSelector isOpen={locationOpen} onClose={() => setLocationOpen(false)} />
+
       {/* FLOATING AI ASSISTANT SIDE-DRAWER */}
       <AnimatePresence>
         {chatOpen && (
@@ -471,11 +468,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 28, stiffness: 220 }}
-                className={`w-screen max-w-md ${theme === "dark" ? "bg-slate-900 border-l border-slate-800" : "bg-white border-l border-slate-200"}`}
+                className={`w-screen max-w-md bg-slate-900 border-l border-slate-800`}
               >
                 <div className="h-full flex flex-col">
                   {/* Chat Header */}
-                  <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/40">
+                  <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-800/40">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-emerald-600 rounded-xl text-white">
                         <Bot className="h-5 w-5" />
@@ -490,7 +487,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </div>
                     <button 
                       onClick={() => setChatOpen(false)}
-                      className="p-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800"
+                      className="p-1 rounded-lg hover:bg-slate-800"
                     >
                       <X className="h-5 w-5" />
                     </button>
@@ -511,7 +508,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     ))}
                     {isTyping && (
                       <div className="flex justify-start">
-                        <div className="bg-slate-100 dark:bg-slate-800 rounded-2xl rounded-bl-none px-4 py-3 text-xs text-slate-500 dark:text-slate-400 border border-slate-200/50 dark:border-slate-700/50 flex items-center gap-1">
+                        <div className="bg-slate-800 rounded-2xl rounded-bl-none px-4 py-3 text-xs text-slate-400 border border-slate-700/50 flex items-center gap-1">
                           <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce" />
                           <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0.2s]" />
                           <span className="h-1.5 w-1.5 rounded-full bg-slate-400 animate-bounce [animation-delay:0.4s]" />
@@ -521,14 +518,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </div>
 
                   {/* Voice Activation & Text Input */}
-                  <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/20">
+                  <div className="p-4 border-t border-slate-800 bg-slate-800/20">
                     <div className="flex items-center gap-2">
                       <button
                         onClick={triggerVoiceCommand}
                         className={`p-2.5 rounded-xl transition-all border ${
                           isRecording 
                             ? "bg-rose-500 border-rose-600 text-white animate-pulse" 
-                            : "bg-slate-200 dark:bg-slate-800 border-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700"
+                            : "bg-slate-800 border-transparent text-slate-300 hover:bg-slate-700"
                         }`}
                         title={t("chat.voiceInputTitle", "Voice Input (Hindi/Marathi/English)")}
                       >

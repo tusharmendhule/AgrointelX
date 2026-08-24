@@ -5,39 +5,30 @@ import {
   Droplets, 
   Wind, 
   Thermometer, 
-  Clock, 
   AlertTriangle, 
   Sparkles,
   Navigation,
-  CircleArrowDown,
-  CalendarCheck
+  CircleArrowDown
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { api } from "../lib/api";
 import { WeatherData } from "../types";
 import { useAuth } from "../context/AuthContext";
+import { useWeather } from "../context/WeatherContext";
+import { useLocation } from "../context/LocationContext";
+import CurrentWeatherCard from "../components/CurrentWeatherCard";
+import WeatherForecast from "../components/WeatherForecast";
+import WeatherRiskCard from "../components/WeatherRiskCard";
+import FarmWeatherActions from "../components/FarmWeatherActions";
 
 export default function WeatherIntel() {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { weather, isLoading: weatherLoading, refreshWeather, timeSinceUpdate } = useWeather();
+  const { locationName } = useLocation();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    async function loadWeather() {
-      try {
-        const data = await api.getWeather();
-        setWeather(data);
-      } catch (err) {
-        console.error("Failed to load meteorological forecast:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadWeather();
-  }, []);
-
-  if (loading || !weather) {
+  if (weatherLoading && !weather) {
     return (
       <div className="space-y-6">
         <div className="h-10 w-48 bg-slate-200 dark:bg-slate-800 rounded-lg animate-pulse" />
@@ -46,6 +37,15 @@ export default function WeatherIntel() {
           <div className="h-44 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse" />
         </div>
         <div className="h-60 bg-slate-200 dark:bg-slate-800 rounded-2xl animate-pulse" />
+      </div>
+    );
+  }
+
+  if (!weather) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight">Weather Intelligence</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Set your farm location to see weather data.</p>
       </div>
     );
   }
@@ -105,7 +105,7 @@ export default function WeatherIntel() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* Core parameters */}
-        <div className="md:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md flex flex-col justify-between">
+        <div className="md:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md flex flex-col justify-between shadow-sm">
           <div>
             <div className="flex items-center justify-between mb-6">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">{t("weather.atmosphericCore", "Atmospheric Core")}</span>
@@ -127,7 +127,7 @@ export default function WeatherIntel() {
                   <Droplets className="h-5 w-5 text-emerald-500" />
                   <div>
                     <p className="text-slate-400 font-medium">{t("weather.airHumidity", "Air Humidity")}</p>
-                    <p className="font-bold text-slate-100 font-mono mt-0.5">{weather.humidity}% RH</p>
+                    <p className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-0.5">{weather.humidity}% RH</p>
                   </div>
                 </div>
 
@@ -135,7 +135,7 @@ export default function WeatherIntel() {
                   <Wind className="h-5 w-5 text-teal-400" />
                   <div>
                     <p className="text-slate-400 font-medium">{t("weather.windVelocity", "Wind velocity")}</p>
-                    <p className="font-bold text-slate-100 font-mono mt-0.5">{weather.windSpeed} km/h</p>
+                    <p className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-0.5">{weather.windSpeed} km/h</p>
                   </div>
                 </div>
 
@@ -143,7 +143,7 @@ export default function WeatherIntel() {
                   <Thermometer className="h-5 w-5 text-amber-500" />
                   <div>
                     <p className="text-slate-400 font-medium">{t("weather.soilTemperature", "Soil Temperature")}</p>
-                    <p className="font-bold text-slate-100 font-mono mt-0.5">{weather.soilTemp}°C</p>
+                    <p className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-0.5">{weather.soilTemp}°C</p>
                   </div>
                 </div>
 
@@ -151,7 +151,7 @@ export default function WeatherIntel() {
                   <CircleArrowDown className="h-5 w-5 text-blue-400" />
                   <div>
                     <p className="text-slate-400 font-medium">{t("weather.precipitation", "Precipitation")}</p>
-                    <p className="font-bold text-slate-100 font-mono mt-0.5">{weather.precipitation} mm</p>
+                    <p className="font-bold text-slate-900 dark:text-slate-100 font-mono mt-0.5">{weather.precipitation} mm</p>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function WeatherIntel() {
         </div>
 
         {/* Soil Moisture Radar */}
-        <div className="p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md flex flex-col justify-between">
+        <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md flex flex-col justify-between shadow-sm">
           <div>
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-6">{t("weather.soilMoistureIndices", "Soil Moisture Indices")}</h3>
             
@@ -189,62 +189,43 @@ export default function WeatherIntel() {
 
       </div>
 
-      {/* DECISION SYSTEM WARNINGS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Forecast Columns */}
-        <div className="md:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-6 flex items-center gap-1.5">
-            <Clock className="h-4.5 w-4.5 text-emerald-500" /> {t("weather.forecast5day", "5-Day Precision Farming Forecast")}
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-            {weather.forecast.map((day) => (
-              <div 
-                key={day.date}
-                className="p-3 rounded-2xl bg-white dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 text-center flex flex-col items-center justify-between"
-              >
-                <span className="text-[10px] font-semibold text-slate-400">
-                  {new Date(day.date).toLocaleDateString([], { weekday: 'short', month: 'numeric', day: 'numeric' })}
-                </span>
-                <span className="text-xs font-bold text-slate-100 my-2">{day.tempMax}° / {day.tempMin}°</span>
-                <span className="text-[9px] text-slate-400 truncate max-w-full font-medium">{day.condition}</span>
-                <div className="mt-2.5 text-[9px] text-blue-400 font-semibold font-mono flex items-center gap-0.5">
-                  <Droplets className="h-3 w-3 inline" /> {day.precipitation}mm
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* ENHANCED WEATHER CARDS */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <WeatherRiskCard />
+        <div className="lg:col-span-2">
+          <FarmWeatherActions />
         </div>
+      </div>
 
-        {/* Action recommendations based on forecast */}
-        <div className="p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
-          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-1.5">
-            <Sparkles className="h-4.5 w-4.5 text-emerald-500" /> {t("weather.aiDecision", "AI Microclimate Decision")}
-          </h3>
+      {/* 7-DAY FORECAST */}
+      <WeatherForecast />
 
-          <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
-            {getAgriAdvice().map((adv, idx) => (
-              <div 
-                key={idx} 
-                className={`p-3 rounded-xl border text-xs ${
-                  adv.severity === "alert" 
-                    ? "bg-rose-500/10 border-rose-500/20 text-rose-300" 
-                    : adv.severity === "warning" 
-                    ? "bg-amber-500/10 border-amber-500/20 text-amber-300" 
-                    : "bg-emerald-500/10 border-emerald-500/20 text-emerald-300"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <AlertTriangle className="h-4 w-4 shrink-0" />
-                  <span className="font-bold">{adv.title}</span>
-                </div>
-                <p className="leading-relaxed text-slate-600 dark:text-slate-400 text-[11px]">{adv.desc}</p>
+      {/* AI DECISIONS */}
+      <div className="p-6 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
+        <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-1.5">
+          <Sparkles className="h-4.5 w-4.5 text-emerald-600 dark:text-emerald-500" /> {t("weather.aiDecision", "AI Microclimate Decision")}
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {getAgriAdvice().map((adv, idx) => (
+            <div 
+              key={idx} 
+              className={`p-4 rounded-xl border text-xs ${
+                adv.severity === "alert" 
+                  ? "bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/20 text-rose-700 dark:text-rose-300" 
+                  : adv.severity === "warning" 
+                  ? "bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20 text-amber-700 dark:text-amber-300" 
+                  : "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-1.5">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                <span className="font-bold text-sm">{adv.title}</span>
               </div>
-            ))}
-          </div>
+              <p className="leading-relaxed text-slate-600 dark:text-slate-400 text-[11px]">{adv.desc}</p>
+            </div>
+          ))}
         </div>
-
       </div>
 
     </div>

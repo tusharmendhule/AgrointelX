@@ -19,13 +19,13 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
     if (currentList.length > 0) {
       if (listType === "bullet") {
         elements.push(
-          <ul key={`list-${key}`} className="list-disc pl-5 space-y-1 my-2 text-slate-300">
+          <ul key={`list-${key}`} className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
             {...currentList}
           </ul>
         );
       } else if (listType === "number") {
         elements.push(
-          <ol key={`list-${key}`} className="list-decimal pl-5 space-y-1 my-2 text-slate-300">
+          <ol key={`list-${key}`} className="list-decimal pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
             {...currentList}
           </ol>
         );
@@ -41,7 +41,7 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
       if (inCodeBlock) {
         // End code block
         elements.push(
-          <pre key={`code-${index}`} className="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-xs text-emerald-400 overflow-x-auto my-3 leading-relaxed">
+          <pre key={`code-${index}`} className="bg-slate-50 dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 font-mono text-xs text-emerald-600 dark:text-emerald-400 overflow-x-auto my-3 leading-relaxed">
             <code>{codeBlockLines.join("\n")}</code>
           </pre>
         );
@@ -64,7 +64,7 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
     if (line.startsWith("### ")) {
       flushList(index);
       elements.push(
-        <h4 key={index} className="text-sm font-extrabold text-emerald-400 mt-4 mb-2 tracking-tight">
+        <h4 key={index} className="text-sm font-extrabold text-emerald-600 dark:text-emerald-400 mt-4 mb-2 tracking-tight">
           {renderInlineStyles(line.slice(4))}
         </h4>
       );
@@ -73,7 +73,7 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
     if (line.startsWith("## ")) {
       flushList(index);
       elements.push(
-        <h3 key={index} className="text-base font-black text-emerald-400 mt-4 mb-2 tracking-tight">
+        <h3 key={index} className="text-base font-black text-emerald-600 dark:text-emerald-400 mt-4 mb-2 tracking-tight">
           {renderInlineStyles(line.slice(3))}
         </h3>
       );
@@ -82,7 +82,7 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
     if (line.startsWith("# ")) {
       flushList(index);
       elements.push(
-        <h2 key={index} className="text-lg font-black text-emerald-400 mt-5 mb-2.5 tracking-tight">
+        <h2 key={index} className="text-lg font-black text-emerald-600 dark:text-emerald-400 mt-5 mb-2.5 tracking-tight">
           {renderInlineStyles(line.slice(2))}
         </h2>
       );
@@ -128,7 +128,7 @@ export default function MarkdownFormatter({ text }: MarkdownFormatterProps) {
     // Standard text line
     flushList(index);
     elements.push(
-      <p key={index} className="leading-relaxed text-slate-300 my-1">
+      <p key={index} className="leading-relaxed text-slate-700 dark:text-slate-300 my-1">
         {renderInlineStyles(line)}
       </p>
     );
@@ -148,14 +148,14 @@ function renderInlineStyles(text: string) {
   return parts.map((part, idx) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={idx} className="font-extrabold text-white">
+        <strong key={idx} className="font-extrabold text-slate-900 dark:text-white">
           {part.slice(2, -2)}
         </strong>
       );
     }
     if (part.startsWith("`") && part.endsWith("`")) {
       return (
-        <code key={idx} className="bg-slate-950 text-emerald-400 font-mono px-1.5 py-0.5 rounded text-[11px] border border-slate-800">
+        <code key={idx} className="bg-slate-100 dark:bg-slate-950 text-emerald-600 dark:text-emerald-400 font-mono px-1.5 py-0.5 rounded text-[11px] border border-slate-200 dark:border-slate-800">
           {part.slice(1, -1)}
         </code>
       );

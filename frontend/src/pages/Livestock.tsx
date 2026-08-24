@@ -88,7 +88,7 @@ export default function LivestockPage() {
   }
 
   return (
-    <div className="space-y-8 font-sans text-slate-100">
+    <div className="space-y-8 font-sans">
       
       {/* Header */}
       <div>
@@ -104,7 +104,7 @@ export default function LivestockPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Livestock list */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-6">
             <h3 className="font-bold text-sm">{t("livestock.activeHerds", "Active Animal Herds")}</h3>
             <span className="text-xs px-2.5 py-1 bg-emerald-500/15 text-emerald-400 rounded-full font-semibold">
@@ -141,20 +141,20 @@ export default function LivestockPage() {
                     </div>
 
                     <div className="flex items-baseline gap-2">
-                      <h4 className="text-xs font-bold text-slate-100">{li.breed}</h4>
+                      <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100">{li.breed}</h4>
                       <span className="text-[10px] text-slate-400 font-mono">{t("livestock.animalsCount", "({{count}} animals)", { count: li.count })}</span>
                     </div>
 
                     <div className="mt-3 text-[11px] text-slate-400">
-                      <p>{t("livestock.activityIntent", "Activity Intent")}: <span className="text-slate-300 font-semibold capitalize">{t(`livestockPurpose.${li.purpose}`, li.purpose || "")}</span></p>
+                      <p>{t("livestock.activityIntent", "Activity Intent")}: <span className="text-slate-600 dark:text-slate-300 font-semibold capitalize">{t(`livestockPurpose.${li.purpose}`, li.purpose || "")}</span></p>
                     </div>
                   </div>
 
-                  <div className="p-3 bg-slate-950/40 rounded-xl flex items-center justify-between text-[11px]">
-                    <span className="flex items-center gap-1 text-slate-400">
-                      <Clock className="h-3.5 w-3.5 text-emerald-500" /> {t("livestock.vaccineSchedule", "Vaccine schedule")}
+                  <div className="p-3 bg-slate-50 dark:bg-slate-950/40 rounded-xl flex items-center justify-between text-[11px]">
+                    <span className="flex items-center gap-1 text-slate-500 dark:text-slate-400">
+                      <Clock className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-500" /> {t("livestock.vaccineSchedule", "Vaccine schedule")}
                     </span>
-                    <span className="font-mono font-bold text-emerald-400">{t("livestock.allCompleted", "All Completed")}</span>
+                    <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">{t("livestock.allCompleted", "All Completed")}</span>
                   </div>
                 </div>
               ))
@@ -163,7 +163,7 @@ export default function LivestockPage() {
         </div>
 
         {/* Create Herd */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Plus className="h-5 w-5" />
@@ -182,37 +182,36 @@ export default function LivestockPage() {
           )}
 
           <form onSubmit={handleAddLivestock} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("livestock.breedName", "Breed / Cohort Name")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("livestock.breedName", "Breed / Cohort Name")}</label>
               <input 
                 type="text" 
                 value={breed} 
                 onChange={(e) => setBreed(e.target.value)}
                 placeholder={t("livestock.breedPlaceholder", "e.g. Sahiwal Cattle / Murrah Buffalo")} 
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("livestock.headCount", "Head Count")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("livestock.headCount", "Head Count")}</label>
                 <input 
                   type="number" 
                   value={count} 
                   onChange={(e) => setCount(e.target.value)}
                   placeholder="e.g. 15" 
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500 font-mono font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("livestock.primaryPurpose", "Primary Purpose")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("livestock.primaryPurpose", "Primary Purpose")}</label>
                 <select 
                   value={purpose} 
                   onChange={(e) => setPurpose(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="dairy">{t("livestockPurposeFull.dairy", "Dairy Production (Milk)")}</option>
                   <option value="draft">{t("livestockPurposeFull.draft", "Draft animal / Ploughing")}</option>
@@ -222,12 +221,11 @@ export default function LivestockPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("livestock.vetHealthStatus", "Veterinary Health Status")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("livestock.vetHealthStatus", "Veterinary Health Status")}</label>
               <select 
                 value={healthStatus} 
                 onChange={(e) => setHealthStatus(e.target.value as any)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               >
                 <option value="healthy">{t("healthStatusFull.healthy", "Healthy (Checked)")}</option>
                 <option value="quarantined">{t("healthStatusFull.quarantined", "Under Quarantine (Observation)")}</option>

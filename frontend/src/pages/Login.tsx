@@ -63,10 +63,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-y-auto py-8 sm:py-12 font-sans text-slate-100">
+    <div className="min-h-screen bg-[#f7faf8] dark:bg-slate-950 flex items-center justify-center p-4 relative overflow-y-auto py-8 sm:py-12 font-sans text-slate-900 dark:text-slate-100">
       {/* Background radial overlays */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-[80px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-[80px]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/5 dark:bg-emerald-500/5 rounded-full blur-[80px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/5 dark:bg-teal-500/5 rounded-full blur-[80px]" />
 
       <div className="w-full max-w-md relative z-10">
         
@@ -87,7 +87,7 @@ export default function Login() {
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-slate-900/60 border border-slate-800/80 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-xl"
+          className="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-xl"
         >
           {error && (
             <div className="mb-4 p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl flex items-center gap-2 text-xs">
@@ -106,7 +106,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="farmer@agrointelx.com"
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -120,7 +120,7 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-slate-950/60 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-11 pr-4 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function Login() {
             type="button"
             disabled={loading}
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-slate-800 hover:border-slate-700 bg-slate-950/40 hover:bg-slate-950 disabled:opacity-50 text-slate-200 text-xs rounded-xl font-medium transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50 dark:bg-slate-950/40 hover:bg-slate-100 dark:hover:bg-slate-950 disabled:opacity-50 text-slate-700 dark:text-slate-200 text-xs rounded-xl font-medium transition-colors cursor-pointer"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24">
               <path
@@ -160,7 +160,7 @@ export default function Login() {
           {/* REGISTER LINK */}
           <div className="text-center mt-6">
             <p className="text-xs text-slate-400">
-              {t("auth.newToApp", "New to AgroIntelX?")}{" "}
+              <span className="text-slate-500 dark:text-slate-400">{t("auth.newToApp", "New to AgroIntelX?")}</span>{" "}
               <Link to="/register" className="text-emerald-400 hover:underline font-semibold">
                 {t("auth.registerLink", "Register Farm Account")}
               </Link>

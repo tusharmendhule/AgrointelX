@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
+import { LocationProvider } from "./context/LocationContext";
+import { WeatherProvider } from "./context/WeatherContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 // Pages
@@ -24,115 +26,119 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            {/* Public Entry Points */}
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+        <LocationProvider>
+          <WeatherProvider>
+            <BrowserRouter>
+              <Routes>
+                {/* Public Entry Points */}
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-            {/* Protected SaaS App Operations */}
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/weather" 
-              element={
-                <ProtectedRoute>
-                  <WeatherIntel />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/crop-recommendation" 
-              element={
-                <ProtectedRoute>
-                  <CropRecommendation />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/disease-detection" 
-              element={
-                <ProtectedRoute>
-                  <DiseaseDetection />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/yield-prediction" 
-              element={
-                <ProtectedRoute>
-                  <YieldPrediction />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/expenses" 
-              element={
-                <ProtectedRoute>
-                  <Expenses />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/calendar" 
-              element={
-                <ProtectedRoute>
-                  <CalendarPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/schemes" 
-              element={
-                <ProtectedRoute>
-                  <Schemes />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/equipment" 
-              element={
-                <ProtectedRoute>
-                  <EquipmentPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/livestock" 
-              element={
-                <ProtectedRoute>
-                  <LivestockPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/settings" 
-              element={
-                <ProtectedRoute>
-                  <SettingsPage />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/ai-assistant" 
-              element={
-                <ProtectedRoute>
-                  <AiAssistant />
-                </ProtectedRoute>
-              } 
-            />
+                {/* Protected SaaS App Operations */}
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/weather" 
+                  element={
+                    <ProtectedRoute>
+                      <WeatherIntel />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/crop-recommendation" 
+                  element={
+                    <ProtectedRoute>
+                      <CropRecommendation />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/disease-detection" 
+                  element={
+                    <ProtectedRoute>
+                      <DiseaseDetection />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/yield-prediction" 
+                  element={
+                    <ProtectedRoute>
+                      <YieldPrediction />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/expenses" 
+                  element={
+                    <ProtectedRoute>
+                      <Expenses />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/calendar" 
+                  element={
+                    <ProtectedRoute>
+                      <CalendarPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/schemes" 
+                  element={
+                    <ProtectedRoute>
+                      <Schemes />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/equipment" 
+                  element={
+                    <ProtectedRoute>
+                      <EquipmentPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/livestock" 
+                  element={
+                    <ProtectedRoute>
+                      <LivestockPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/settings" 
+                  element={
+                    <ProtectedRoute>
+                      <SettingsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/ai-assistant" 
+                  element={
+                    <ProtectedRoute>
+                      <AiAssistant />
+                    </ProtectedRoute>
+                  } 
+                />
 
-            {/* Catch-all Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </BrowserRouter>
+                {/* Catch-all Fallback */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </BrowserRouter>
+          </WeatherProvider>
+        </LocationProvider>
       </AuthProvider>
     </ThemeProvider>
   );

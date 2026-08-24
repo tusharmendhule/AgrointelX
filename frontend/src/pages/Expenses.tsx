@@ -104,11 +104,11 @@ export default function Expenses() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Ledger display */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-800/80">
             <div>
               <span className="text-[10px] uppercase font-mono font-bold text-slate-400">{t("expenses.ledgerSummary", "Ledger Summary")}</span>
-              <h3 className="text-2xl font-black text-emerald-400">₹{totalSum.toLocaleString()}</h3>
+              <h3 className="text-2xl font-black text-emerald-600 dark:text-emerald-400">₹{totalSum.toLocaleString()}</h3>
             </div>
             <span className="text-xs font-semibold px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full">
               {t("expenses.entriesActive", "{{count}} Entries Active", { count: expenses.length })}
@@ -129,7 +129,7 @@ export default function Expenses() {
                       <ArrowUpRight className="h-5 w-5" />
                     </div>
                     <div className="truncate">
-                      <p className="text-xs font-bold truncate text-slate-100">{e.description || t("expenses.unspecifiedCost", "Unspecified {{category}} cost", { category: e.category })}</p>
+                      <p className="text-xs font-bold truncate text-slate-900 dark:text-slate-100">{e.description || t("expenses.unspecifiedCost", "Unspecified {{category}} cost", { category: e.category })}</p>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-[9px] uppercase tracking-wider font-mono font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded text-slate-400">{t(`expenseCategory.${e.category}`, e.category)}</span>
                         <span className="text-[9px] text-slate-400 font-mono">{e.date}</span>
@@ -153,7 +153,7 @@ export default function Expenses() {
         </div>
 
         {/* Form log expense */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Plus className="h-5 w-5" />
@@ -172,12 +172,11 @@ export default function Expenses() {
           )}
 
           <form onSubmit={handleAddExpense} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("expenses.category", "Expense Category")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("expenses.category", "Expense Category")}</label>
               <select 
                 value={category} 
                 onChange={(e) => setCategory(e.target.value as any)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               >
                 <option value="seeds">{t("expenseCategory.seeds", "Crop Seeds Acquisition")}</option>
                 <option value="fertilizer">{t("expenseCategory.fertilizer", "Fertilizers & Nutrients")}</option>
@@ -191,38 +190,37 @@ export default function Expenses() {
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("expenses.amount", "Amount (INR ₹)")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("expenses.amount", "Amount (INR ₹)")}</label>
                 <input 
                   type="number" 
                   value={amount} 
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="e.g. 4500" 
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500 font-mono font-bold"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500 font-mono font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{t("expenses.transactionDate", "Transaction Date")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("expenses.transactionDate", "Transaction Date")}</label>
                 <input 
                   type="date" 
                   value={date} 
                   onChange={(e) => setDate(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{t("expenses.description", "Description / Particulars")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{t("expenses.description", "Description / Particulars")}</label>
               <input 
                 type="text" 
                 value={description} 
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder={t("expenses.descriptionPlaceholder", "e.g. Basmati Paddy Seeds 50kg bag")} 
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
 

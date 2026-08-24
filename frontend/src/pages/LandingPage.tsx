@@ -66,31 +66,31 @@ export default function LandingPage() {
   ];
 
   const colorClasses: Record<string, { bg: string; text: string }> = {
-    emerald: { bg: "bg-emerald-500/10", text: "text-emerald-400" },
-    teal: { bg: "bg-teal-500/10", text: "text-teal-400" },
-    blue: { bg: "bg-blue-500/10", text: "text-blue-400" },
-    amber: { bg: "bg-amber-500/10", text: "text-amber-400" },
-    purple: { bg: "bg-purple-500/10", text: "text-purple-400" },
-    rose: { bg: "bg-rose-500/10", text: "text-rose-400" },
+    emerald: { bg: "bg-emerald-50 dark:bg-emerald-500/10", text: "text-emerald-600 dark:text-emerald-400" },
+    teal: { bg: "bg-teal-50 dark:bg-teal-500/10", text: "text-teal-600 dark:text-teal-400" },
+    blue: { bg: "bg-blue-50 dark:bg-blue-500/10", text: "text-blue-600 dark:text-blue-400" },
+    amber: { bg: "bg-amber-50 dark:bg-amber-500/10", text: "text-amber-600 dark:text-amber-400" },
+    purple: { bg: "bg-purple-50 dark:bg-purple-500/10", text: "text-purple-600 dark:text-purple-400" },
+    rose: { bg: "bg-rose-50 dark:bg-rose-500/10", text: "text-rose-600 dark:text-rose-400" },
   };
 
   const tagColorClasses: Record<string, string> = {
-    emerald: "text-emerald-500",
-    teal: "text-teal-500",
-    blue: "text-blue-500",
-    amber: "text-amber-500",
-    purple: "text-purple-500",
-    rose: "text-rose-500",
+    emerald: "text-emerald-600 dark:text-emerald-500",
+    teal: "text-teal-600 dark:text-teal-500",
+    blue: "text-blue-600 dark:text-blue-500",
+    amber: "text-amber-600 dark:text-amber-500",
+    purple: "text-purple-600 dark:text-purple-500",
+    rose: "text-rose-600 dark:text-rose-500",
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans overflow-hidden relative">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans overflow-hidden relative">
       {/* Dynamic Background Gradients */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[600px] h-[600px] bg-teal-500/10 rounded-full blur-[140px] pointer-events-none" />
 
       {/* TOP HEADER NAVIGATION */}
-      <header className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative z-10 border-b border-slate-900">
+      <header className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative z-10 border-b border-slate-200 dark:border-slate-900">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-emerald-600 rounded-xl text-white shadow-lg shadow-emerald-500/20">
             <Leaf className="h-5.5 w-5.5" />
@@ -102,8 +102,8 @@ export default function LandingPage() {
         </div>
 
         <div className="flex items-center gap-3 sm:gap-4">
-          <LanguageSwitcher variant="dark" />
-          <Link to="/login" className="text-slate-400 hover:text-white text-sm font-medium transition-colors">
+          <LanguageSwitcher />
+          <Link to="/login" className="text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-white text-sm font-medium transition-colors">
             {t("landing.signIn", "Sign In")}
           </Link>
           <Link to="/register" className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-medium shadow-md shadow-emerald-600/10 transition-all active:scale-95">
@@ -118,7 +118,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs text-emerald-400 mb-6 font-medium"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-slate-900 border border-emerald-200 dark:border-slate-800 text-xs text-emerald-600 dark:text-emerald-400 mb-6 font-medium"
         >
           <Sparkles className="h-4 w-4 animate-spin-slow" />
           {t("landing.badge", "Research-Worthy Agricultural ML Decision Engines")}
@@ -140,7 +140,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed"
+          className="text-slate-500 dark:text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mb-8 leading-relaxed"
         >
           {t("landing.heroSubtitle", "Maximize crop yields, detect foliage diseases in seconds, analyze microclimates, and track farm finance sheets on the leading enterprise SaaS agriculture suite.")}
         </motion.p>
@@ -160,7 +160,7 @@ export default function LandingPage() {
           </Link>
           <Link 
             to="/login" 
-            className="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-medium rounded-xl text-sm transition-all"
+            className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-medium rounded-xl text-sm transition-all"
           >
             {t("landing.sandboxCta", "Access Sandbox")}
           </Link>
@@ -169,7 +169,7 @@ export default function LandingPage() {
 
       {/* BENTO FEATURE MATRIX */}
       <section className="max-w-7xl mx-auto px-6 py-12 relative z-10">
-        <h2 className="text-2xl font-bold tracking-tight text-center mb-10 bg-gradient-to-r from-slate-200 to-slate-400 bg-clip-text text-transparent">
+        <h2 className="text-2xl font-bold tracking-tight text-center mb-10">
           {t("landing.featuresTitle", "Comprehensive Farming Module Ecosystem")}
         </h2>
 
@@ -177,13 +177,13 @@ export default function LandingPage() {
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <div key={feature.title} className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 backdrop-blur-md flex flex-col justify-between group hover:border-emerald-500/30 transition-all duration-300">
+              <div key={feature.title} className="p-6 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md flex flex-col justify-between group hover:border-emerald-500/30 transition-all duration-300 shadow-sm dark:shadow-none">
                 <div>
                   <div className={`p-3 ${colorClasses[feature.color].bg} rounded-xl ${colorClasses[feature.color].text} w-fit mb-4`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
                     {feature.desc}
                   </p>
                 </div>
@@ -197,7 +197,7 @@ export default function LandingPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="max-w-7xl mx-auto px-6 py-8 border-t border-slate-900 text-center relative z-10 text-xs text-slate-500">
+      <footer className="max-w-7xl mx-auto px-6 py-8 border-t border-slate-200 dark:border-slate-900 text-center relative z-10 text-xs text-slate-500">
         <p>{t("landing.footer", "© 2026 AgroIntelX. All rights reserved. Designed for sustainable precision crop analytics.")}</p>
       </footer>
     </div>

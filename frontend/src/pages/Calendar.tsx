@@ -97,7 +97,7 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="space-y-8 font-sans text-slate-100">
+    <div className="space-y-8 font-sans">
       
       {/* Header */}
       <div>
@@ -113,7 +113,7 @@ export default function CalendarPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         
         {/* Task lists */}
-        <div className="lg:col-span-3 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-3 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-6">
             <h3 className="font-bold text-sm">{translate("calendar.activeSchedules", "Active Field Schedules")}</h3>
             <span className="text-xs px-2.5 py-1 bg-emerald-500/15 text-emerald-400 rounded-full font-semibold">
@@ -147,7 +147,7 @@ export default function CalendarPage() {
                     </button>
 
                     <div className="truncate">
-                      <p className={`text-xs font-bold truncate text-slate-100 ${t.completed ? "line-through text-slate-500" : ""}`}>{t.title}</p>
+                      <p className={`text-xs font-bold truncate text-slate-900 dark:text-slate-100 ${t.completed ? "line-through text-slate-500" : ""}`}>{t.title}</p>
                       <div className="flex items-center gap-2 mt-1">
                         <span className="text-[9px] uppercase font-mono font-bold bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded text-slate-400">{t.crop}</span>
                         <span className={`text-[9px] uppercase font-bold ${t.priority === "high" ? "text-rose-500" : t.priority === "medium" ? "text-amber-500" : "text-slate-500"}`}>{translate(`priority.${t.priority}`, t.priority)}</span>
@@ -174,7 +174,7 @@ export default function CalendarPage() {
         </div>
 
         {/* Task Creator Form */}
-        <div className="lg:col-span-2 p-6 rounded-3xl bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 dark:backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-400">
               <Plus className="h-5 w-5" />
@@ -193,50 +193,49 @@ export default function CalendarPage() {
           )}
 
           <form onSubmit={handleAddTask} className="space-y-4 text-xs">
-            <div>
-              <label className="block text-slate-400 font-semibold mb-1">{translate("calendar.operationTitle", "Operation Title")}</label>
+            <div>                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{translate("calendar.operationTitle", "Operation Title")}</label>
               <input 
                 type="text" 
                 value={title} 
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={translate("calendar.operationTitlePlaceholder", "e.g. Flush drip emitters / Apply urea")} 
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{translate("calendar.cultivatedCrop", "Cultivated Crop")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{translate("calendar.cultivatedCrop", "Cultivated Crop")}</label>
                 <input 
                   type="text" 
                   value={crop} 
                   onChange={(e) => setCrop(e.target.value)}
                   placeholder={translate("calendar.cultivatedCropPlaceholder", "e.g. Paddy / Maize")} 
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{translate("calendar.targetDueDate", "Target Due Date")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{translate("calendar.targetDueDate", "Target Due Date")}</label>
                 <input 
                   type="date" 
                   value={date} 
                   onChange={(e) => setDate(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{translate("calendar.farmingStage", "Farming Stage")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{translate("calendar.farmingStage", "Farming Stage")}</label>
                 <select 
                   value={category} 
                   onChange={(e) => setCategory(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="sowing">{translate("taskCategoryFull.sowing", "Sowing / Bed preparation")}</option>
                   <option value="irrigation">{translate("taskCategoryFull.irrigation", "Watering / Irrigation")}</option>
@@ -247,11 +246,11 @@ export default function CalendarPage() {
               </div>
 
               <div>
-                <label className="block text-slate-400 font-semibold mb-1">{translate("calendar.urgencyPriority", "Urgency Priority")}</label>
+                <label className="block text-slate-500 dark:text-slate-400 font-semibold mb-1">{translate("calendar.urgencyPriority", "Urgency Priority")}</label>
                 <select 
                   value={priority} 
                   onChange={(e) => setPriority(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3 text-slate-100 focus:outline-none focus:border-emerald-500"
+                  className="w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-2.5 px-3 text-slate-900 dark:text-slate-100 focus:outline-none focus:border-emerald-500"
                 >
                   <option value="low">{translate("priorityFull.low", "Low (Non-critical)")}</option>
                   <option value="medium">{translate("priorityFull.medium", "Medium (Standard)")}</option>
